@@ -4,14 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Daily Task Update - SUJJAAAY</title>
-
-  <!-- PWA meta -->
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#10b981">
-
-  <!-- Inline simple SVG favicon (Sujjay text) -->
-  <link rel="icon" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192"><rect rx="28" ry="28" width="100%" height="100%" fill="%2310b981"/><text x="50%" y="55%" font-size="48" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" fill="white">SUJJAAAY</text></svg>'>
-
   <style>
     :root{
       --bg:#f3f4f6; --card:#ffffff; --text:#111827; --muted:#6b7280; --accent:#10b981;
@@ -77,7 +71,7 @@
       <div class="muted">3. DDPI – Follow-ups</div>
       <textarea id="ddpi" placeholder="DDPI – Follow-ups"></textarea>
 
-      <div class="muted">Other Tasks Completed</div>
+      <div class="muted">Other Tasks Completed Today</div>
       <textarea id="tasks" placeholder="Other Tasks Completed"></textarea>
 
       <div class="muted">Pending for Tomorrow</div>
@@ -93,8 +87,7 @@
         </div>
         <div class="signature">
           Regards,
-          <br>Su jay B V
-          <br>Manager – Educational Institutions & Ops
+          <br>Su jay
         </div>
       </div>
       <p id="msg" class="muted" style="margin-top:10px"></p>
@@ -116,9 +109,7 @@
   </div>
 
   <script>
-    // Utilities
     const el = id => document.getElementById(id);
-    const now = new Date();
     const pad = n => n.toString().padStart(2,'0');
 
     // Fill date/time defaults
@@ -129,188 +120,18 @@
     };
     setAutoDateTime();
 
-    // load theme
+    // theme
     const applyTheme = (t) => {
       if(t === 'dark'){ document.documentElement.setAttribute('data-theme','dark'); el('themeToggle').innerText='Light'; localStorage.setItem('dt_theme','dark'); }
       else { document.documentElement.removeAttribute('data-theme'); el('themeToggle').innerText='Dark'; localStorage.setItem('dt_theme','light'); }
     };
     const savedTheme = localStorage.getItem('dt_theme') || 'light';
     applyTheme(savedTheme === 'dark' ? 'dark' : 'light');
-
     el('themeToggle').addEventListener('click', () => {
       const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
       applyTheme(current === 'dark' ? 'light' : 'dark');
     });
 
-    // preset actions
+    // preset
     el('preset').addEventListener('change', (e) => {
-      if(e.target.value === 'today'){ setAutoDateTime(); el('msg').innerText='Date/time filled.'; }
-      if(e.target.value === 'clear'){ ['tender','logistics','ddpi','tasks','pending','support'].forEach(id=>el(id).value=''); el('msg').innerText='Form cleared.'; }
-      e.target.value='';
-      setTimeout(()=>el('msg').innerText='',1500);
-    });
-
-    // Build formatted WhatsApp report
-    function buildReport(){
-      const date = el('date').value || '';
-      const time = el('time').value || '';
-      const tender = el('tender').value.trim() || '•';
-      const logistics = el('logistics').value.trim() || '•';
-      const ddpi = el('ddpi').value.trim() || '•';
-      const tasks = el('tasks').value.trim() || '•';
-      const pending = el('pending').value.trim() || '•';
-      const support = el('support').value.trim() || '•';
-      const dt = date ? date : new Date().toISOString().slice(0,10);
-      const timeDisplay = time ? time : (new Date()).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
-
-      return [
-        `Dear Kiran,`,
-        ``,
-        `📅 Date: ${dt}    ⏰ Time: ${timeDisplay}`,
-        `👤 Name: Sujay — Manager, EI & Ops`,
-        ``,
-        `1️⃣ Tender Master Sheet – Daily Update`,
-        tender,
-        ``,
-        `2️⃣ Logistics – Follow-ups`,
-        logistics,
-        ``,
-        `3️⃣ DDPI – Follow-ups`,
-        ddpi,
-        ``,
-        `📚 Other Tasks Completed Today:`,
-        tasks,
-        ``,
-        `⏳ Pending for Tomorrow:`,
-        pending,
-        ``,
-        `🤝 Support Required:`,
-        support,
-        ``,
-        `Regards,`,
-        `Sujay B V`,
-        `Manager – Educational Institutions & Ops`
-      ].join('\\n');
-    }
-
-    // Copy to clipboard
-    async function copyReport(){
-      const report = buildReport();
-      try{
-        await navigator.clipboard.writeText(report);
-        el('msg').innerText = 'Report copied to clipboard. Paste in WhatsApp.';
-      }catch(e){
-        // fallback
-        const ta = document.createElement('textarea');
-        ta.value = report;
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand('copy');
-        document.body.removeChild(ta);
-        el('msg').innerText = 'Copied (fallback).';
-      }
-      setTimeout(()=>el('msg').innerText='',2200);
-    }
-
-    // Local Storage history
-    const HISTORY_KEY = 'dt_history_v1';
-
-    function loadHistory(){
-      try{
-        const raw = localStorage.getItem(HISTORY_KEY);
-        return raw ? JSON.parse(raw) : [];
-      }catch(e){ return []; }
-    }
-    function saveHistoryEntry(obj){
-      const arr = loadHistory();
-      arr.unshift(obj); // latest first
-      // keep 40 entries max
-      if(arr.length>40) arr.splice(40);
-      localStorage.setItem(HISTORY_KEY, JSON.stringify(arr));
-    }
-
-    function renderHistory(){
-      const list = el('historyList');
-      list.innerHTML = '';
-      const arr = loadHistory();
-      if(arr.length===0){ list.innerHTML = '<div class="muted">No saved reports yet.</div>'; return; }
-      arr.forEach((it, idx) => {
-        const d = document.createElement('div');
-        d.className = 'history-item';
-        d.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center">
-                         <div style="font-weight:600">${it.date} ${it.time}</div>
-                         <div style="display:flex;gap:6px">
-                           <button data-idx="${idx}" class="small-btn copyHist">Copy</button>
-                           <button data-idx="${idx}" class="small-btn delHist">Delete</button>
-                         </div>
-                       </div>
-                       <div style="margin-top:6px;white-space:pre-line;font-size:13px">${it.summary}</div>`;
-        list.appendChild(d);
-      });
-      // attach listeners
-      document.querySelectorAll('.copyHist').forEach(btn=>{
-        btn.addEventListener('click', async (e)=>{
-          const idx = e.target.dataset.idx;
-          const arr = loadHistory();
-          await navigator.clipboard.writeText(arr[idx].full);
-          el('msg').innerText = 'History item copied to clipboard.';
-          setTimeout(()=>el('msg').innerText='',2000);
-        });
-      });
-      document.querySelectorAll('.delHist').forEach(btn=>{
-        btn.addEventListener('click', (e)=>{
-          const idx = e.target.dataset.idx;
-          const arr = loadHistory();
-          arr.splice(idx,1);
-          localStorage.setItem(HISTORY_KEY, JSON.stringify(arr));
-          renderHistory();
-        });
-      });
-    }
-
-    // Save button
-    el('saveBtn').addEventListener('click', ()=>{
-      const date = el('date').value || (new Date()).toISOString().slice(0,10);
-      const time = el('time').value || (new Date()).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
-      const full = buildReport();
-      const summary = [
-        el('tender').value.slice(0,120),
-        el('logistics').value.slice(0,120),
-        el('ddpi').value.slice(0,120)
-      ].filter(Boolean).join(' | ');
-      saveHistoryEntry({ date, time, summary, full });
-      el('msg').innerText = 'Saved to history.';
-      setTimeout(()=>el('msg').innerText='',1500);
-    });
-
-    // Copy button
-    el('copyBtn').addEventListener('click', async ()=>{
-      await copyReport();
-    });
-
-    // View history modal
-    el('viewHistory').addEventListener('click', ()=>{
-      renderHistory();
-      el('historyModal').style.display='block';
-    });
-    el('closeHistory').addEventListener('click', ()=> el('historyModal').style.display='none');
-    el('clearHistory').addEventListener('click', ()=>{
-      if(confirm('Clear all saved reports?')){ localStorage.removeItem(HISTORY_KEY); renderHistory(); }
-    });
-
-    // quick save on unload (optional)
-    window.addEventListener('beforeunload', ()=>{ /* nothing */ });
-
-    // service worker registration for offline / PWA
-    if('serviceWorker' in navigator){
-      navigator.serviceWorker.register('service-worker.js').then(()=> {
-        // registered
-      }).catch(()=>{ /* ignore */ });
-    }
-
-    // convenience: fill date/time when user taps header
-    document.querySelector('header').addEventListener('dblclick', setAutoDateTime);
-
-  </script>
-</body>
-</html>
+      if
