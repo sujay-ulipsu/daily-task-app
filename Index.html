@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Daily Task Update - SUJJAAAY</title>
+  <link rel="manifest" href="manifest.json" />
+  <style>
+    body { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Arial; margin:0; padding:16px; background:#f3f4f6; }
+    .container { max-width:720px; margin:0 auto; }
+    h1 { text-align:center; font-size:20px; margin-bottom:12px; }
+    input, textarea { width:100%; padding:10px; border-radius:10px; border:1px solid #ccc; background:white; margin-bottom:8px; }
+    button { padding:12px; border-radius:12px; background:#10b981; color:white; width:100%; font-weight:600; border:none; }
+    .small { font-size:13px; color:#374151; margin-bottom:8px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Daily Task Update</h1>
+    <div class="small">Respected Sir, (auto-included)</div>
+
+    <input id="date" type="date" />
+
+    <textarea id="tender" rows="3" placeholder="Tender Master Sheet – Daily Update"></textarea>
+    <textarea id="logistics" rows="3" placeholder="Logistics – Follow-ups"></textarea>
+    <textarea id="ddpi" rows="3" placeholder="DDPI – Follow-ups"></textarea>
+    <textarea id="tasks" rows="2" placeholder="Other Tasks Completed"></textarea>
+    <textarea id="pending" rows="2" placeholder="Pending for Tomorrow"></textarea>
+    <textarea id="support" rows="1" placeholder="Support Required"></textarea>
+
+    <button id="copyBtn">Copy Report for WhatsApp</button>
+    <p id="msg" style="text-align:center;margin-top:8px;color:#065f46"></p>
+  </div>
+
+  <script>
+    function fmtDate(d){
+      if(!d) return '';
+      const dt = new Date(d);
+      const dd = ('0'+dt.getDate()).slice(-2);
+      const mm = ('0'+(dt.getMonth()+1)).slice(-2);
+      const yy = dt.getFullYear();
+      return dd+'/'+mm+'/'+yy;
+    }
+
+    document.getElementById('copyBtn').addEventListener('click', async ()=>{
+      const date = document.getElementById('date').value;
+      const tender = document.getElementById('tender').value || '•';
+      const logistics = document.getElementById('logistics').value || '•';
+      const ddpi = document.getElementById('ddpi').value || '•';
+      const tasks = document.getElementById('tasks').value || '•';
+      const pending = document.getElementById('pending').value || '•';
+      const support = document.getElementById('support').value || '•';
+
+      const report = `Respected Sir,\\n\\n📅 Date: ${fmtDate(date)}\\n👤 Name: Sujay — Manager, EI & Ops\\n\\n1️⃣ Tender Master Sheet\\n${tender}\\n\\n2️⃣ Logistics\\n${logistics}\\n\\n3️⃣ DDPI Follow-ups\\n${ddpi}\\n\\n📚 Completed:\\n${tasks}\\n\\n⏳ Pending:\\n${pending}\\n\\n🤝 Support:\\n${support}\\n\\nRegards,\\nSujay`;
+
+      await navigator.clipboard.writeText(report);
+      document.getElementById('msg').innerText = "Copied! Paste in WhatsApp.";
+    });
+  </script>
+</body>
+</html>
