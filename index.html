@@ -49,3 +49,87 @@
     th, td {
       padding: 8px;
       text-align: left;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>Daily Work Report</h2>
+
+  <label>Task 1: Tender Master Sheet – Daily Update</label>
+  <textarea id="status1"></textarea>
+
+  <label>Task 2: Internal Team (Logistics & Training Team)</label>
+  <textarea id="status2"></textarea>
+
+  <label>Task 3: DDPI – Follow-ups</label>
+  <textarea id="status3"></textarea>
+
+  <label>Other Tasks Completed</label>
+  <textarea id="otherTasks"></textarea>
+
+  <label>Pending Tasks</label>
+  <textarea id="pendingTasks"></textarea>
+
+  <label>Plan for Next Working Day</label>
+  <textarea id="planNext"></textarea>
+
+  <button onclick="generateReport()">Generate Report</button>
+
+  <div id="output"></div>
+
+  <script>
+    function generateReport() {
+      const date = new Date().toISOString().split("T")[0];
+
+      document.getElementById("output").innerHTML = `
+        <h2>DAILY WORK REPORT</h2>
+
+        <table>
+          <tr>
+            <td><b>Name</b></td>
+            <td>Sujay B V</td>
+            <td><b>Date</b></td>
+            <td>${date}</td>
+          </tr>
+          <tr>
+            <td><b>Designation</b></td>
+            <td>Manager – Educational Institutions & Operations</td>
+            <td><b>Organization</b></td>
+            <td>Kidvento Education and Research Pvt. Ltd.</td>
+          </tr>
+        </table>
+
+        <table>
+          <tr>
+            <th>Sl. No.</th>
+            <th>Work / Activity</th>
+            <th>Status</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>Tender Master Sheet – Daily Update</td>
+            <td>${status1.value}</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Internal Team (Logistics & Training Team)</td>
+            <td>${status2.value}</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>DDPI – Follow-ups</td>
+            <td>${status3.value}</td>
+          </tr>
+        </table>
+
+        <p><b>Other Tasks Completed</b><br>${otherTasks.value}</p>
+        <p><b>Pending Tasks</b><br>${pendingTasks.value}</p>
+        <p><b>Plan for Next Working Day</b><br>${planNext.value}</p>
+      `;
+    }
+  </script>
+
+</body>
+</html>
