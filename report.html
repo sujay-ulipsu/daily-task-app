@@ -98,4 +98,87 @@
 <table>
     <colgroup>
         <col class="slno">
-        <col class="
+        <col class="work">
+        <col class="status">
+    </colgroup>
+    <thead>
+        <tr>
+            <th>Sl. No.</th>
+            <th>Work / Activity</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align="center">1</td>
+            <td class="task-title">Tender Master Sheet – Daily Update</td>
+            <td id="s1"></td>
+        </tr>
+        <tr>
+            <td align="center">2</td>
+            <td class="task-title">Internal Team (Logistics & Training Team)</td>
+            <td id="s2"></td>
+        </tr>
+        <tr>
+            <td align="center">3</td>
+            <td class="task-title">DDPI – Follow-ups</td>
+            <td id="s3"></td>
+        </tr>
+        <tr>
+            <td align="center">4</td>
+            <td class="task-title">Other Tasks Completed</td>
+            <td id="s4"></td>
+        </tr>
+        <tr>
+            <td align="center">5</td>
+            <td class="task-title">Pending Tasks</td>
+            <td id="s5"></td>
+        </tr>
+        <tr>
+            <td align="center">6</td>
+            <td class="task-title">Plan for Next Working Day</td>
+            <td id="s6"></td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- FOOTER -->
+<div class="footer">
+    Regards,<br><br>
+    <strong>Sujay B V</strong><br>
+    Manager – Educational Institutions & Operations<br>
+    Kidvento Education and Research Pvt. Ltd.
+</div>
+
+<!-- ACTION BUTTONS -->
+<div class="actions">
+    <button onclick="window.print()">Print / Save as PDF</button>
+    <button onclick="shareWhatsApp()">Share on WhatsApp</button>
+</div>
+
+<script>
+    // Load selected date
+    const selectedDate = localStorage.getItem("currentReportDate");
+    const key = "dailyReport-" + selectedDate;
+    const data = JSON.parse(localStorage.getItem(key)) || {};
+
+    // Format date DD-MM-YYYY
+    const d = new Date(selectedDate);
+    document.getElementById("reportDate").innerText =
+        String(d.getDate()).padStart(2, '0') + "-" +
+        String(d.getMonth() + 1).padStart(2, '0') + "-" +
+        d.getFullYear();
+
+    // Fill status cells
+    for (let i = 1; i <= 6; i++) {
+        document.getElementById("s" + i).innerText = data["task" + i] || "";
+    }
+
+    function shareWhatsApp() {
+        const text = document.body.innerText;
+        window.open("https://wa.me/?text=" + encodeURIComponent(text), "_blank");
+    }
+</script>
+
+</body>
+</html>
