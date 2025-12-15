@@ -1,90 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Daily Work Report</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Daily Work Report Generator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      margin: 40px;
-      color: #000;
-      background: #fff;
-    }
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 20px;
+}
 
-    h2 {
-      text-align: center;
-      text-transform: uppercase;
-      margin-bottom: 30px;
-    }
+h2 {
+  text-align: center;
+}
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 20px;
-    }
+input, textarea, button {
+  width: 100%;
+  padding: 8px;
+  margin: 6px 0;
+}
 
-    th, td {
-      border: 1px solid #000;
-      padding: 8px;
-      font-size: 14px;
-      vertical-align: top;
-    }
+button {
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+}
 
-    th {
-      background-color: #f2f2f2;
-      text-align: center;
-    }
+/* REPORT STYLE */
+#report {
+  display: none;
+  margin-top: 40px;
+}
 
-    .section-title {
-      font-weight: bold;
-      margin-top: 25px;
-    }
-  </style>
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+td, th {
+  border: 1px solid #000;
+  padding: 8px;
+}
+
+th {
+  background: #f2f2f2;
+}
+</style>
 </head>
 
 <body>
 
-<h2>Daily Work Report</h2>
+<h2>Daily Task Entry</h2>
+
+<label>Date</label>
+<input type="date" id="date">
+
+<label>Task 1</label>
+<input type="text" id="t1">
+<label>Status</label>
+<input type="text" id="s1">
+
+<label>Task 2</label>
+<input type="text" id="t2">
+<label>Status</label>
+<input type="text" id="s2">
+
+<label>Task 3</label>
+<input type="text" id="t3">
+<label>Status</label>
+<input type="text" id="s3">
+
+<label>Plan for Next Working Day</label>
+<textarea id="plan"></textarea>
+
+<button onclick="generateReport()">Generate Report</button>
+
+<!-- REPORT -->
+<div id="report">
+
+<h2>DAILY WORK REPORT</h2>
 
 <table>
-  <tr>
-    <td><b>Name</b></td>
-    <td>Sujay B V</td>
-    <td><b>Date</b></td>
-    <td>__/__/2025</td>
-  </tr>
-  <tr>
-    <td><b>Designation</b></td>
-    <td>Manager – Educational Institutions & Operations</td>
-    <td><b>Organization</b></td>
-    <td>Kidvento Education and Research Pvt. Ltd.</td>
-  </tr>
+<tr>
+<td><b>Name</b></td><td>Sujay B V</td>
+<td><b>Date</b></td><td id="rdate"></td>
+</tr>
+<tr>
+<td><b>Designation</b></td><td>Manager – Educational Institutions & Operations</td>
+<td><b>Organization</b></td><td>Kidvento Education and Research Pvt. Ltd.</td>
+</tr>
 </table>
 
 <table>
-  <tr>
-    <th>Sl. No.</th>
-    <th>Work / Activity</th>
-    <th>Status</th>
-  </tr>
-  <tr>
-    <td>1</td>
-    <td>School and institution follow-ups</td>
-    <td>Completed</td>
-  </tr>
-  <tr>
-    <td>2</td>
-    <td>Internal coordination and planning</td>
-    <td>In Progress</td>
-  </tr>
-  <tr>
-    <td>3</td>
-    <td>Tender documentation and review</td>
-    <td>Completed</td>
-  </tr>
+<tr>
+<th>Sl. No.</th>
+<th>Work / Activity</th>
+<th>Status</th>
+</tr>
+<tr>
+<td>1</td><td id="rt1"></td><td id="rs1"></td>
+</tr>
+<tr>
+<td>2</td><td id="rt2"></td><td id="rs2"></td>
+</tr>
+<tr>
+<td>3</td><td id="rt3"></td><td id="rs3"></td>
+</tr>
 </table>
 
-<div class="section-title">Plan for Next Working Day</div>
-<p>Continue follow-ups, coordination, and tender activities
+<h3>Plan for Next Working Day</h3>
+<p id="rplan"></p>
+
+</div>
+
+<script>
+function generateReport() {
+  document.getElementById("rdate").innerText =
+    document.getElementById("date").value;
+
+  document.getElementById("rt1").innerText = document.getElementById("t1").value;
+  document.getElementById("rs1").innerText = document.getElementById("s1").value;
+
+  document.getElementById("rt2").innerText = document.getElementById("t2").value;
+  document.getElementById("rs2").innerText = document.getElementById("s2").value;
+
+  document.getElementById("rt3").innerText = document.getElementById("t3").value;
+  document.getElementById("rs3").innerText = document.getElementById("s3").value;
+
+  document.getElementById("rplan").innerText =
+    document.getElementById("plan").value;
+
+  document.getElementById("report").style.display = "block";
+}
+</script>
+
+</body>
+</html>
