@@ -2,141 +2,124 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Daily Work Report</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Work Report</title>
 
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        background: #f2f4f7;
-    }
+body {
+    font-family: Arial, sans-serif;
+    background: #f2f4f8;
+    margin: 0;
+    padding: 15px;
+}
 
-    h1 {
-        text-align: center;
-        margin: 16px 0;
-        font-size: 22px;
-    }
+.container {
+    max-width: 900px;
+    margin: auto;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+}
 
-    /* ENTRY VIEW (MOBILE FIRST) */
-    .container {
-        max-width: 100%;
-        margin: auto;
-        background: #ffffff;
-        padding: 16px;
-    }
+h1 {
+    text-align: center;
+    margin-bottom: 25px;
+}
 
-    label {
-        font-weight: bold;
-        display: block;
-        margin-top: 18px;
-        font-size: 16px;
-    }
+label {
+    font-weight: bold;
+    display: block;
+    margin-top: 18px;
+}
 
-    textarea {
-        width: 100%;
-        min-height: 120px;
-        padding: 12px;
-        font-size: 16px;
-        margin-top: 8px;
-        border: 1px solid #bbb;
-        border-radius: 6px;
-        resize: vertical;
-    }
+textarea {
+    width: 100%;
+    min-height: 90px;
+    padding: 12px;
+    margin-top: 6px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
 
-    button {
-        margin-top: 25px;
-        width: 100%;
-        padding: 16px;
-        font-size: 18px;
-        background: #1e88e5;
-        color: #fff;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-    }
+button {
+    width: 100%;
+    margin-top: 25px;
+    padding: 14px;
+    font-size: 16px;
+    background: #1e88e5;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
 
-    button:hover {
-        background: #1565c0;
-    }
+button:hover {
+    background: #1565c0;
+}
 
-    /* REPORT (PDF VIEW) */
+/* REPORT */
+.report {
+    display: none;
+    margin-top: 40px;
+}
+
+.report h2 {
+    margin-bottom: 6px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    border: 1px solid #000;
+    padding: 8px;
+    font-size: 14px;
+}
+
+th {
+    text-align: center;
+}
+
+td:first-child {
+    text-align: center;
+    width: 8%;
+}
+
+td:nth-child(2) {
+    width: 42%;
+}
+
+td:nth-child(3) {
+    width: 50%;
+}
+
+.footer {
+    margin-top: 25px;
+}
+
+/* PRINT */
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    .report, .report * {
+        visibility: visible;
+    }
     .report {
-        display: none;
-        padding: 24px;
-        background: #fff;
-    }
-
-    .report p {
-        margin: 6px 0;
-        font-size: 14px;
-    }
-
-    table {
+        position: absolute;
+        left: 0;
+        top: 0;
         width: 100%;
-        border-collapse: collapse;
-        margin-top: 14px;
-        font-size: 14px;
     }
-
-    th, td {
-        border: 1px solid #000;
-        padding: 8px;
-        vertical-align: top;
+    button {
+        display: none !important;
     }
-
-    th {
-        text-align: center;
-        background: #f0f0f0;
-    }
-
-    td:first-child {
-        text-align: center;
-        width: 45px;
-    }
-
-    td:nth-child(2) {
-        width: 55%;
-        text-align: left;
-        white-space: nowrap;
-    }
-
-    td:nth-child(3) {
-        width: 35%;
-        text-align: left;
-        white-space: pre-line;
-    }
-
-    /* PRINT SETTINGS */
-    @media print {
-        body * {
-            visibility: hidden;
-        }
-        .report, .report * {
-            visibility: visible;
-        }
-        .report {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-        }
-        button {
-            display: none !important;
-        }
-    }
-
-    /* DESKTOP POLISH */
-    @media (min-width: 768px) {
-        .container {
-            max-width: 900px;
-            margin-top: 20px;
-            border-radius: 8px;
-        }
-        textarea {
-            min-height: 100px;
-        }
-    }
+}
 </style>
 </head>
 
@@ -145,6 +128,7 @@
 <div class="container">
     <h1>Daily Work Report</h1>
 
+    <!-- INPUT FORM -->
     <label>Task 1: Tender Master Sheet – Daily Update</label>
     <textarea id="t1" placeholder="Type details here..."></textarea>
 
@@ -165,7 +149,7 @@
 
     <button onclick="generateReport()">Generate Report</button>
 
-    <!-- PDF REPORT -->
+    <!-- REPORT -->
     <div class="report" id="report">
         <p><strong>Dear Kiran,</strong></p>
         <p>Today's Update – <span id="date"></span></p>
@@ -208,10 +192,13 @@
             </tr>
         </table>
 
-        <br>
-        <p>Regards,</p>
-        <p><strong>Sujay B V</strong><br>
-        Manager – Educational Institutions & Operations</p>
+        <div class="footer">
+            <p>Regards,</p>
+            <p><strong>Sujay B V</strong><br>
+            Manager – Educational Institutions & Operations</p>
+        </div>
+
+        <button onclick="window.print()">Print / Save as PDF</button>
     </div>
 </div>
 
@@ -224,11 +211,9 @@ function generateReport() {
     document.getElementById("r5").innerText = document.getElementById("t5").value;
     document.getElementById("r6").innerText = document.getElementById("t6").value;
 
-    const d = new Date();
-    document.getElementById("date").innerText =
-        d.getDate().toString().padStart(2,'0') + "-" +
-        (d.getMonth()+1).toString().padStart(2,'0') + "-" +
-        d.getFullYear();
+    const today = new Date();
+    const formatted = today.toLocaleDateString('en-GB');
+    document.getElementById("date").innerText = formatted;
 
     document.getElementById("report").style.display = "block";
 }
