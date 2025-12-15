@@ -136,12 +136,21 @@
 </div>
 
 <script>
-const today = new Date().toISOString().split("T")[0];
+function formatDate(d){
+  const day = String(d.getDate()).padStart(2,'0');
+  const month = String(d.getMonth()+1).padStart(2,'0');
+  const year = d.getFullYear();
+  return `${day}-${month}-${year}`;
+}
+
+const todayObj = new Date();
+const today = formatDate(todayObj);
+
 document.getElementById("date").innerText = today;
 
 const fields = ["t1","t2","t3","t4","t5","t6"];
 
-// Autosave per day
+// Autosave (date-wise)
 fields.forEach(id => {
   const el = document.getElementById(id);
   el.value = localStorage.getItem(today + id) || "";
@@ -162,6 +171,7 @@ function toggleTheme(){
 
 // Generate PDF
 function generatePDF(){
+  localStorage.setItem("report_date", today);
   fields.forEach(id => {
     localStorage.setItem("report_" + id, document.getElementById(id).value);
   });
