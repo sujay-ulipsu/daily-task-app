@@ -1,84 +1,93 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Daily Work Report</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>Daily Work Report</title>
 
-  <style>
+<style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f9;
-      padding: 15px;
+        font-family: Arial, sans-serif;
+        background: #f4f6f8;
+        padding: 15px;
     }
 
     h2 {
-      text-align: center;
-      margin-bottom: 10px;
+        text-align: center;
+        margin-bottom: 20px;
     }
 
     label {
-      font-weight: bold;
-      display: block;
-      margin-top: 15px;
+        font-weight: bold;
+        display: block;
+        margin-top: 15px;
     }
 
     textarea {
-      width: 100%;
-      min-height: 55px;
-      padding: 8px;
-      margin-top: 5px;
-      font-size: 14px;
+        width: 100%;
+        min-height: 60px;
+        padding: 8px;
+        font-size: 14px;
+        box-sizing: border-box;
     }
 
     button {
-      margin-top: 20px;
-      width: 100%;
-      padding: 12px;
-      font-size: 16px;
-      background: #2c7be5;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 15px;
-      background: #fff;
-    }
-
-    table, th, td {
-      border: 1px solid #000;
-    }
-
-    th, td {
-      padding: 8px;
-      font-size: 14px;
-      vertical-align: top;
+        width: 100%;
+        margin-top: 20px;
+        padding: 12px;
+        font-size: 16px;
+        background: #1a73e8;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
     }
 
     .report-box {
-      background: #fff;
-      padding: 15px;
-      margin-top: 25px;
+        background: #fff;
+        padding: 20px;
+        margin-top: 30px;
+        border: 1px solid #ccc;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+        font-size: 14px;
+    }
+
+    th, td {
+        border: 1px solid #000;
+        padding: 8px;
+        vertical-align: top;
+    }
+
+    th {
+        background: #f0f0f0;
+        text-align: center;
     }
 
     .print-btn {
-      background: #28a745;
-      margin-top: 10px;
+        margin-top: 20px;
+        background: #0b8043;
     }
 
     @media print {
-      button, textarea {
-        display: none;
-      }
-      body {
-        background: #fff;
-      }
+        body {
+            background: #fff;
+        }
+        textarea, button, h2, label {
+            display: none;
+        }
+        .print-btn {
+            display: none;
+        }
+        .report-box {
+            border: none;
+            margin-top: 0;
+        }
     }
-  </style>
+</style>
 </head>
 
 <body>
@@ -109,69 +118,74 @@
 
 <script>
 function generateReport() {
-  var d = new Date();
-  var date = d.getDate() + "-" + (d.getMonth()+1) + "-" + d.getFullYear();
 
-  var html = `
-  <div class="report-box" id="report">
-    <h2>DAILY WORK REPORT</h2>
+    var t1 = document.getElementById("t1");
+    var t2 = document.getElementById("t2");
+    var t3 = document.getElementById("t3");
+    var t4 = document.getElementById("t4");
+    var t5 = document.getElementById("t5");
+    var t6 = document.getElementById("t6");
 
-    <table>
-      <tr>
-        <td><b>Name</b></td><td>Sujay B V</td>
-        <td><b>Date</b></td><td>${date}</td>
-      </tr>
-      <tr>
-        <td><b>Designation</b></td>
-        <td>Manager – Educational Institutions & Operations</td>
-        <td><b>Organization</b></td>
-        <td>Kidvento Education and Research Pvt. Ltd.</td>
-      </tr>
+    var today = new Date();
+    var date = today.toLocaleDateString("en-GB");
 
-      <tr>
-        <th>Sl. No.</th>
-        <th>Work / Activity</th>
-        <th>Status</th>
-      </tr>
+    var html = `
+    <div class="report-box">
 
-      <tr>
-        <td>1</td>
-        <td>Tender Master Sheet – Daily Update</td>
-        <td>${t1.value}</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>Internal Team (Logistics & Training Team)</td>
-        <td>${t2.value}</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>DDPI – Follow-ups</td>
-        <td>${t3.value}</td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td>Other Tasks Completed</td>
-        <td>${t4.value}</td>
-      </tr>
-      <tr>
-        <td>5</td>
-        <td>Pending Tasks</td>
-        <td>${t5.value}</td>
-      </tr>
-      <tr>
-        <td>6</td>
-        <td>Plan for Next Working Day</td>
-        <td>${t6.value}</td>
-      </tr>
-    </table>
+        <p><b>Dear Kiran,</b></p>
+        <p><b>Today’s Update – ${date}</b></p>
 
-    <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
-  </div>
-  `;
+        <table>
+            <tr>
+                <th>Sl. No.</th>
+                <th>Work / Activity</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Tender Master Sheet – Daily Update</td>
+                <td>${t1.value}</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Internal Team (Logistics & Training Team)</td>
+                <td>${t2.value}</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>DDPI – Follow-ups</td>
+                <td>${t3.value}</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Other Tasks Completed</td>
+                <td>${t4.value}</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Pending Tasks</td>
+                <td>${t5.value}</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Plan for Next Working Day</td>
+                <td>${t6.value}</td>
+            </tr>
+        </table>
 
-  document.getElementById("output").innerHTML = html;
-  document.getElementById("report").scrollIntoView({ behavior: "smooth" });
+        <br>
+
+        <p>
+            Regards,<br>
+            <b>Sujay B V</b><br>
+            Manager – Educational Institutions & Operations
+        </p>
+
+        <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+    </div>
+    `;
+
+    document.getElementById("output").innerHTML = html;
 }
 </script>
 
