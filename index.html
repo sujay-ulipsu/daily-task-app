@@ -1,98 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Daily Work Report</title>
+  <meta charset="UTF-8" />
+  <title>Daily Work Report</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<style>
-body{
-  font-family: Arial, sans-serif;
-  background:#f4f6f8;
-  margin:0;
-  padding:16px;
-}
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #ffffff;
+      color: #000;
+    }
 
-.container{
-  max-width:900px;
-  margin:auto;
-  background:#fff;
-  padding:20px;
-  border-radius:10px;
-}
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+    }
 
-h1{
-  text-align:center;
-  margin-bottom:20px;
-}
+    h1 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 30px;
+    }
 
-label{
-  font-weight:bold;
-  display:block;
-  margin-top:15px;
-}
+    .task {
+      margin-bottom: 28px;
+    }
 
-textarea{
-  width:100%;
-  min-height:90px;
-  font-size:16px;
-  padding:12px;
-  margin-top:6px;
-  border:1px solid #ccc;
-  border-radius:6px;
-}
+    .task label {
+      display: block;
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
 
-button{
-  width:100%;
-  margin-top:20px;
-  padding:14px;
-  font-size:18px;
-  background:#1976d2;
-  color:white;
-  border:none;
-  border-radius:6px;
-}
-</style>
+    textarea {
+      width: 100%;
+      min-height: 110px;
+      font-size: 17px;
+      padding: 12px;
+      border: 1px solid #999;
+      border-radius: 4px;
+      resize: vertical;
+      box-sizing: border-box;
+    }
+
+    .btn {
+      width: 100%;
+      margin-top: 30px;
+      padding: 15px;
+      font-size: 18px;
+      background: #1976d2;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: #125aa0;
+    }
+  </style>
 </head>
 
 <body>
-<div class="container">
-<h1>Daily Work Report</h1>
+  <div class="page">
+    <h1>Daily Work Report</h1>
 
-<label>Task 1: Tender Master Sheet – Daily Update</label>
-<textarea id="t1"></textarea>
+    <div class="task">
+      <label>Task 1: Tender Master Sheet – Daily Update</label>
+      <textarea id="t1" placeholder="Type details here..."></textarea>
+    </div>
 
-<label>Task 2: Internal Team (Logistics & Training Team)</label>
-<textarea id="t2"></textarea>
+    <div class="task">
+      <label>Task 2: Internal Team (Logistics & Training Team)</label>
+      <textarea id="t2" placeholder="Type details here..."></textarea>
+    </div>
 
-<label>Task 3: DDPI – Follow-ups</label>
-<textarea id="t3"></textarea>
+    <div class="task">
+      <label>Task 3: DDPI – Follow-ups</label>
+      <textarea id="t3" placeholder="Type details here..."></textarea>
+    </div>
 
-<label>Other Tasks Completed</label>
-<textarea id="t4"></textarea>
+    <div class="task">
+      <label>Other Tasks Completed</label>
+      <textarea id="t4" placeholder="Type details here..."></textarea>
+    </div>
 
-<label>Pending Tasks</label>
-<textarea id="t5"></textarea>
+    <div class="task">
+      <label>Pending Tasks</label>
+      <textarea id="t5" placeholder="Type details here..."></textarea>
+    </div>
 
-<label>Plan for Next Working Day</label>
-<textarea id="t6"></textarea>
+    <div class="task">
+      <label>Plan for Next Working Day</label>
+      <textarea id="t6" placeholder="Type details here..."></textarea>
+    </div>
 
-<button onclick="generate()">Generate PDF</button>
-</div>
+    <button class="btn" onclick="generatePDF()">Generate PDF</button>
+  </div>
 
-<script>
-function generate(){
-  const data = {
-    t1: t1.value,
-    t2: t2.value,
-    t3: t3.value,
-    t4: t4.value,
-    t5: t5.value,
-    t6: t6.value
-  };
-  localStorage.setItem("reportData", JSON.stringify(data));
-  window.location.href = "report.html";
-}
-</script>
+  <script>
+    function generatePDF() {
+      const data = {
+        t1: document.getElementById("t1").value,
+        t2: document.getElementById("t2").value,
+        t3: document.getElementById("t3").value,
+        t4: document.getElementById("t4").value,
+        t5: document.getElementById("t5").value,
+        t6: document.getElementById("t6").value
+      };
+
+      localStorage.setItem("dailyReportData", JSON.stringify(data));
+      window.location.href = "report.html";
+    }
+  </script>
 </body>
 </html>
