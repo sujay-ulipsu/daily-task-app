@@ -1,154 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Daily Work Report</title>
+  <meta charset="UTF-8" />
+  <title>Daily Work Report</title>
 
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    padding: 30px;
-    color: #000;
-  }
-
-  .logo-container {
-    text-align: center;
-    margin-bottom: 15px;
-  }
-
-  .logo-container img {
-    max-width: 160px;
-    height: auto;
-  }
-
-  .content {
-    margin-top: 10px;
-    font-size: 14px;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-  }
-
-  th, td {
-    border: 1px solid #000;
-    padding: 8px;
-    font-size: 14px;
-  }
-
-  th {
-    text-align: center;
-    font-weight: bold;
-  }
-
-  td:first-child {
-    text-align: center;
-    width: 50px;
-  }
-
-  .footer {
-    margin-top: 25px;
-    font-size: 14px;
-  }
-
-  button {
-    margin-top: 20px;
-    padding: 10px 16px;
-    font-size: 14px;
-    cursor: pointer;
-  }
-
-  @media print {
-    button {
-      display: none;
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      color: #000;
     }
-  }
-</style>
+
+    /* LOGO */
+    .logo {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .logo img {
+      max-height: 70px;
+    }
+
+    /* HEADER TEXT */
+    .header-text {
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+
+    .header-text strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    /* TABLE */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      margin-top: 10px;
+    }
+
+    th, td {
+      border: 1px solid #000;
+      padding: 6px;
+      vertical-align: top;
+      word-break: break-word;
+    }
+
+    th {
+      text-align: center;
+      font-weight: bold;
+    }
+
+    /* SERIAL NUMBER */
+    th:nth-child(1),
+    td:nth-child(1) {
+      width: 35px;
+      text-align: center;
+      padding: 4px;
+    }
+
+    /* WORK / ACTIVITY */
+    th:nth-child(2),
+    td:nth-child(2) {
+      width: 55%;
+    }
+
+    /* STATUS */
+    th:nth-child(3),
+    td:nth-child(3) {
+      width: auto;
+    }
+
+    /* FOOTER */
+    .footer {
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    .print-btn {
+      margin-top: 20px;
+    }
+
+    /* HIDE BUTTON IN PDF */
+    @media print {
+      .print-btn {
+        display: none;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-  <!-- LOGO CENTERED -->
-  <div class="logo-container">
+  <!-- LOGO -->
+  <div class="logo">
     <img src="logo.png" alt="Kidvento Logo">
   </div>
 
-  <!-- TEXT STARTS FROM NEXT LINE -->
-  <div class="content">
-    <p>
-      <b>Dear Kiran,</b><br>
-      Today's Update – <span id="dateText"></span>
-    </p>
+  <!-- HEADER -->
+  <div class="header-text">
+    <strong>Dear Kiran,</strong>
+    Today’s Update – <span id="date"></span>
+  </div>
 
-    <table>
+  <!-- TABLE -->
+  <table>
+    <thead>
       <tr>
         <th>Sl. No.</th>
         <th>Work / Activity</th>
         <th>Status</th>
       </tr>
+    </thead>
+    <tbody>
       <tr>
         <td>1</td>
         <td>Tender Master Sheet – Daily Update</td>
-        <td id="s1"></td>
+        <td id="t1"></td>
       </tr>
       <tr>
         <td>2</td>
         <td>Internal Team (Logistics & Training Team)</td>
-        <td id="s2"></td>
+        <td id="t2"></td>
       </tr>
       <tr>
         <td>3</td>
         <td>DDPI – Follow-ups</td>
-        <td id="s3"></td>
+        <td id="t3"></td>
       </tr>
       <tr>
         <td>4</td>
         <td>Other Tasks Completed</td>
-        <td id="s4"></td>
+        <td id="t4"></td>
       </tr>
       <tr>
         <td>5</td>
         <td>Pending Tasks</td>
-        <td id="s5"></td>
+        <td id="t5"></td>
       </tr>
       <tr>
         <td>6</td>
         <td>Plan for Next Working Day</td>
-        <td id="s6"></td>
+        <td id="t6"></td>
       </tr>
-    </table>
+    </tbody>
+  </table>
 
-    <div class="footer">
-      <p>
-        Regards,<br><br>
-        <b>Sujay B V</b><br>
-        Manager – Educational Institutions & Operations<br>
-        <b>Kidvento Education and Research Pvt. Ltd.</b>
-      </p>
-    </div>
+  <!-- FOOTER -->
+  <div class="footer">
+    Regards,<br><br>
+    <strong>Sujay B V</strong><br>
+    Manager – Educational Institutions & Operations<br>
+    Kidvento Education and Research Pvt. Ltd.
+  </div>
 
+  <!-- PRINT BUTTON -->
+  <div class="print-btn">
     <button onclick="window.print()">Print / Save as PDF</button>
   </div>
 
-<script>
-  const params = new URLSearchParams(window.location.search);
-  const date = params.get("date");
-  const data = JSON.parse(localStorage.getItem("report_" + date));
+  <!-- SCRIPT -->
+  <script>
+    // Date DD-MM-YYYY
+    const d = new Date();
+    const day = String(d.getDate()).padStart(2, '0');
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const year = d.getFullYear();
+    document.getElementById("date").innerText = `${day}-${month}-${year}`;
 
-  if (data) {
-    document.getElementById("dateText").innerText =
-      new Date(date).toLocaleDateString("en-GB");
-
-    document.getElementById("s1").innerText = data.t1 || "";
-    document.getElementById("s2").innerText = data.t2 || "";
-    document.getElementById("s3").innerText = data.t3 || "";
-    document.getElementById("s4").innerText = data.t4 || "";
-    document.getElementById("s5").innerText = data.t5 || "";
-    document.getElementById("s6").innerText = data.t6 || "";
-  }
-</script>
+    // Load data from localStorage
+    for (let i = 1; i <= 6; i++) {
+      const data = localStorage.getItem("task" + i);
+      if (data) {
+        document.getElementById("t" + i).innerText = data;
+      }
+    }
+  </script>
 
 </body>
 </html>
