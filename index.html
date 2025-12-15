@@ -6,101 +6,123 @@
 <title>Daily Work Report</title>
 
 <style>
-  :root {
-    --bg: #121212;
-    --card: #1e1e1e;
-    --text: #ffffff;
-    --border: #333;
-    --btn: #1e88e5;
-  }
+:root{
+  --bg:#121212;
+  --card:#1e1e1e;
+  --text:#ffffff;
+  --border:#333;
+  --btn:#1e88e5;
+}
+body.light{
+  --bg:#f4f6f8;
+  --card:#ffffff;
+  --text:#000000;
+  --border:#ccc;
+  --btn:#1e88e5;
+}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:20px;
+}
 
-  body.light {
-    --bg: #f4f6f8;
-    --card: #ffffff;
-    --text: #000000;
-    --border: #ccc;
-    --btn: #1e88e5;
-  }
+/* HEADER */
+.header{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom:10px;
+}
+.header img{
+  height:48px;
+}
+.header h1{
+  flex:1;
+  text-align:center;
+  margin:0;
+}
 
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-  }
+/* TOP BAR */
+.top-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:10px 0 20px;
+}
+.toggle{
+  cursor:pointer;
+  font-size:14px;
+}
 
-  .container {
-    max-width: 900px;
-    margin: auto;
-    padding: 20px;
-  }
+/* TASK CARDS */
+.card{
+  background:var(--card);
+  padding:16px;
+  border-radius:12px;
+  margin-bottom:16px;
+}
+label{
+  font-weight:bold;
+  display:block;
+  margin-bottom:6px;
+}
+textarea{
+  width:100%;
+  min-height:90px;
+  padding:12px;
+  font-size:16px;
+  border-radius:8px;
+  border:1px solid var(--border);
+  background:transparent;
+  color:var(--text);
+  resize:vertical;
+}
 
-  h1 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
+/* BUTTON */
+.btn{
+  width:100%;
+  padding:14px;
+  font-size:18px;
+  background:var(--btn);
+  color:#fff;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  margin-top:10px;
+}
 
-  .card {
-    background: var(--card);
-    padding: 16px;
-    border-radius: 12px;
-    margin-bottom: 16px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  }
-
-  label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 8px;
-  }
-
-  textarea {
-    width: 100%;
-    min-height: 90px;
-    padding: 12px;
-    font-size: 16px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    background: transparent;
-    color: var(--text);
-    resize: vertical;
-  }
-
-  .btn {
-    width: 100%;
-    padding: 14px;
-    font-size: 18px;
-    background: var(--btn);
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    margin-top: 10px;
-  }
-
-  .top-actions {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-  }
-
-  .toggle {
-    cursor: pointer;
-    font-size: 14px;
-  }
+input[type="date"]{
+  padding:6px;
+  font-size:14px;
+}
 </style>
 </head>
 
 <body>
 <div class="container">
 
-  <div class="top-actions">
-    <div class="toggle" onclick="toggleTheme()">🌙 Toggle Theme</div>
-    <div id="date"></div>
+  <!-- HEADER WITH LOGO -->
+  <div class="header">
+    <img src="logo.png" alt="Kidvento Logo">
+    <h1>Daily Work Report</h1>
   </div>
 
-  <h1>Daily Work Report</h1>
+  <!-- DATE + THEME -->
+  <div class="top-row">
+    <div>
+      Date:
+      <input type="date" id="datePicker">
+    </div>
+    <div class="toggle" onclick="toggleTheme()">🌙 Toggle Theme</div>
+  </div>
 
+  <!-- TASKS -->
   <div class="card">
     <label>Task 1: Tender Master Sheet – Daily Update</label>
     <textarea id="t1"></textarea>
@@ -136,47 +158,53 @@
 </div>
 
 <script>
-function formatDate(d){
-  const day = String(d.getDate()).padStart(2,'0');
-  const month = String(d.getMonth()+1).padStart(2,'0');
-  const year = d.getFullYear();
-  return `${day}-${month}-${year}`;
+const fields=["t1","t2","t3","t4","t5","t6"];
+
+/* THEME */
+if(!localStorage.getItem("theme")) localStorage.setItem("theme","dark");
+document.body.className=localStorage.getItem("theme");
+function toggleTheme(){
+  const t=document.body.className==="dark"?"light":"dark";
+  document.body.className=t;
+  localStorage.setItem("theme",t);
 }
 
-const todayObj = new Date();
-const today = formatDate(todayObj);
+/* DATE HANDLING */
+const picker=document.getElementById("datePicker");
+const today=new Date().toISOString().split("T")[0];
+picker.value=today;
+loadData(today);
 
-document.getElementById("date").innerText = today;
+picker.addEventListener("change",()=>loadData(picker.value));
 
-const fields = ["t1","t2","t3","t4","t5","t6"];
+function loadData(date){
+  fields.forEach(id=>{
+    document.getElementById(id).value =
+      localStorage.getItem(date+"_"+id) || "";
+  });
+}
 
-// Autosave (date-wise)
-fields.forEach(id => {
-  const el = document.getElementById(id);
-  el.value = localStorage.getItem(today + id) || "";
-  el.addEventListener("input", () => {
-    localStorage.setItem(today + id, el.value);
+/* AUTOSAVE */
+fields.forEach(id=>{
+  document.getElementById(id).addEventListener("input",()=>{
+    localStorage.setItem(
+      picker.value+"_"+id,
+      document.getElementById(id).value
+    );
   });
 });
 
-// Theme
-if (!localStorage.getItem("theme")) localStorage.setItem("theme","dark");
-document.body.className = localStorage.getItem("theme");
-
-function toggleTheme(){
-  const t = document.body.className === "dark" ? "light" : "dark";
-  document.body.className = t;
-  localStorage.setItem("theme", t);
-}
-
-// Generate PDF
+/* GENERATE PDF */
 function generatePDF(){
-  localStorage.setItem("report_date", today);
-  fields.forEach(id => {
-    localStorage.setItem("report_" + id, document.getElementById(id).value);
+  localStorage.setItem("report_date", picker.value);
+  fields.forEach(id=>{
+    localStorage.setItem("report_"+id,
+      document.getElementById(id).value
+    );
   });
-  window.open("report.html", "_blank");
+  window.open("report.html","_blank");
 }
 </script>
+
 </body>
 </html>
