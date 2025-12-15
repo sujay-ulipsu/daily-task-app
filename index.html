@@ -3,107 +3,111 @@
 <head>
 <meta charset="UTF-8">
 <title>Daily Work Report</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
     body {
         font-family: Arial, sans-serif;
-        margin: 30px;
-        color: #000;
+        margin: 0;
+        background: #f2f4f7;
     }
 
-    h2 {
+    h1 {
         text-align: center;
-        margin-bottom: 20px;
+        margin: 16px 0;
+        font-size: 22px;
+    }
+
+    /* ENTRY VIEW (MOBILE FIRST) */
+    .container {
+        max-width: 100%;
+        margin: auto;
+        background: #ffffff;
+        padding: 16px;
     }
 
     label {
-        font-size: 14px;
-        font-weight: 600;
+        font-weight: bold;
         display: block;
-        margin-top: 10px;
+        margin-top: 18px;
+        font-size: 16px;
     }
 
     textarea {
         width: 100%;
-        height: 70px;
-        font-size: 14px;
-        padding: 6px;
-        margin-bottom: 12px;
+        min-height: 120px;
+        padding: 12px;
+        font-size: 16px;
+        margin-top: 8px;
+        border: 1px solid #bbb;
+        border-radius: 6px;
+        resize: vertical;
     }
 
     button {
+        margin-top: 25px;
         width: 100%;
-        padding: 12px;
-        font-size: 16px;
-        background-color: #2f80ed;
+        padding: 16px;
+        font-size: 18px;
+        background: #1e88e5;
         color: #fff;
         border: none;
+        border-radius: 6px;
         cursor: pointer;
-        margin-top: 10px;
     }
 
-    .print-btn {
-        background-color: #27ae60;
-        margin-top: 15px;
+    button:hover {
+        background: #1565c0;
     }
 
-    /* REPORT SECTION */
+    /* REPORT (PDF VIEW) */
     .report {
         display: none;
-        margin-top: 25px;
+        padding: 24px;
+        background: #fff;
     }
 
-    .top-text {
-        font-size: 15px;
-        margin-bottom: 12px;
+    .report p {
+        margin: 6px 0;
+        font-size: 14px;
     }
 
     table {
         width: 100%;
         border-collapse: collapse;
-        margin-top: 10px;
+        margin-top: 14px;
+        font-size: 14px;
     }
 
     th, td {
         border: 1px solid #000;
-        padding: 8px 10px;
-        font-size: 14px;
+        padding: 8px;
         vertical-align: top;
     }
 
-    /* Header row centered */
     th {
         text-align: center;
-        background-color: #f2f2f2;
-        font-weight: 700;
+        background: #f0f0f0;
     }
 
-    /* First column centered */
     td:first-child {
         text-align: center;
         width: 45px;
     }
 
-    /* Work / Activity */
     td:nth-child(2) {
+        width: 55%;
         text-align: left;
-        width: 50%;
-        font-weight: 500;
+        white-space: nowrap;
     }
 
-    /* Status */
     td:nth-child(3) {
+        width: 35%;
         text-align: left;
-        width: 45%;
-        white-space: pre-wrap;
+        white-space: pre-line;
     }
 
-    .footer {
-        margin-top: 30px;
-        font-size: 14px;
-    }
-
-    /* PRINT ONLY REPORT */
+    /* PRINT SETTINGS */
     @media print {
         body * {
             visibility: hidden;
@@ -117,55 +121,54 @@
             top: 0;
             width: 100%;
         }
+        button {
+            display: none !important;
+        }
+    }
+
+    /* DESKTOP POLISH */
+    @media (min-width: 768px) {
+        .container {
+            max-width: 900px;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+        textarea {
+            min-height: 100px;
+        }
     }
 </style>
 </head>
 
 <body>
 
-<!-- ENTRY SECTION -->
-<h2>Daily Work Report</h2>
+<div class="container">
+    <h1>Daily Work Report</h1>
 
-<label>Task 1: Tender Master Sheet – Daily Update</label>
-<textarea id="t1"></textarea>
+    <label>Task 1: Tender Master Sheet – Daily Update</label>
+    <textarea id="t1" placeholder="Type details here..."></textarea>
 
-<label>Task 2: Internal Team (Logistics & Training Team)</label>
-<textarea id="t2"></textarea>
+    <label>Task 2: Internal Team (Logistics & Training Team)</label>
+    <textarea id="t2" placeholder="Type details here..."></textarea>
 
-<label>Task 3: DDPI – Follow-ups</label>
-<textarea id="t3"></textarea>
+    <label>Task 3: DDPI – Follow-ups</label>
+    <textarea id="t3" placeholder="Type details here..."></textarea>
 
-<label>Other Tasks Completed</label>
-<textarea id="t4"></textarea>
+    <label>Other Tasks Completed</label>
+    <textarea id="t4" placeholder="Type details here..."></textarea>
 
-<label>Pending Tasks</label>
-<textarea id="t5"></textarea>
+    <label>Pending Tasks</label>
+    <textarea id="t5" placeholder="Type details here..."></textarea>
 
-<label>Plan for Next Working Day</label>
-<textarea id="t6"></textarea>
+    <label>Plan for Next Working Day</label>
+    <textarea id="t6" placeholder="Type details here..."></textarea>
 
-<button onclick="generateReport()">Generate Report</button>
+    <button onclick="generateReport()">Generate Report</button>
 
-<!-- REPORT SECTION -->
-<div class="report" id="output"></div>
-
-<script>
-function todayDate() {
-    const d = new Date();
-    return d.getDate().toString().padStart(2, '0') + '-' +
-           (d.getMonth() + 1).toString().padStart(2, '0') + '-' +
-           d.getFullYear();
-}
-
-function generateReport() {
-    const output = document.getElementById("output");
-    output.style.display = "block";
-
-    output.innerHTML = `
-        <div class="top-text">
-            <strong>Dear Kiran,</strong><br>
-            Today’s Update – ${todayDate()}
-        </div>
+    <!-- PDF REPORT -->
+    <div class="report" id="report">
+        <p><strong>Dear Kiran,</strong></p>
+        <p>Today's Update – <span id="date"></span></p>
 
         <table>
             <tr>
@@ -176,43 +179,58 @@ function generateReport() {
             <tr>
                 <td>1</td>
                 <td>Tender Master Sheet – Daily Update</td>
-                <td>${t1.value}</td>
+                <td id="r1"></td>
             </tr>
             <tr>
                 <td>2</td>
                 <td>Internal Team (Logistics & Training Team)</td>
-                <td>${t2.value}</td>
+                <td id="r2"></td>
             </tr>
             <tr>
                 <td>3</td>
                 <td>DDPI – Follow-ups</td>
-                <td>${t3.value}</td>
+                <td id="r3"></td>
             </tr>
             <tr>
                 <td>4</td>
                 <td>Other Tasks Completed</td>
-                <td>${t4.value}</td>
+                <td id="r4"></td>
             </tr>
             <tr>
                 <td>5</td>
                 <td>Pending Tasks</td>
-                <td>${t5.value}</td>
+                <td id="r5"></td>
             </tr>
             <tr>
                 <td>6</td>
                 <td>Plan for Next Working Day</td>
-                <td>${t6.value}</td>
+                <td id="r6"></td>
             </tr>
         </table>
 
-        <div class="footer">
-            Regards,<br><br>
-            <strong>Sujay B V</strong><br>
-            Manager – Educational Institutions & Operations
-        </div>
+        <br>
+        <p>Regards,</p>
+        <p><strong>Sujay B V</strong><br>
+        Manager – Educational Institutions & Operations</p>
+    </div>
+</div>
 
-        <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
-    `;
+<script>
+function generateReport() {
+    document.getElementById("r1").innerText = document.getElementById("t1").value;
+    document.getElementById("r2").innerText = document.getElementById("t2").value;
+    document.getElementById("r3").innerText = document.getElementById("t3").value;
+    document.getElementById("r4").innerText = document.getElementById("t4").value;
+    document.getElementById("r5").innerText = document.getElementById("t5").value;
+    document.getElementById("r6").innerText = document.getElementById("t6").value;
+
+    const d = new Date();
+    document.getElementById("date").innerText =
+        d.getDate().toString().padStart(2,'0') + "-" +
+        (d.getMonth()+1).toString().padStart(2,'0') + "-" +
+        d.getFullYear();
+
+    document.getElementById("report").style.display = "block";
 }
 </script>
 
