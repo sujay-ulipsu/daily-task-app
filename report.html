@@ -1,146 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Daily Work Report</title>
+  <meta charset="UTF-8">
+  <title>Daily Work Report</title>
 
-<style>
-body {
-  font-family: Arial, sans-serif;
-  margin: 30px;
-  color: #000;
-}
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      color: #000;
+    }
 
-.logo {
-  text-align: center;
-  margin-bottom: 10px;
-}
+    /* Logo */
+    .logo {
+      text-align: center;
+      margin-bottom: 15px;
+    }
 
-.logo img {
-  max-width: 160px;
-}
+    .logo img {
+      max-width: 180px;
+    }
 
-.header-text {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
+    /* Header text */
+    .header-text {
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 15px;
-  table-layout: fixed;
-}
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      table-layout: fixed;
+    }
 
-th, td {
-  border: 1px solid #000;
-  padding: 6px;
-  vertical-align: top;
-  word-break: break-word;
-}
+    th, td {
+      border: 1px solid #000;
+      padding: 6px 8px;
+      font-size: 13px;
+      vertical-align: top;
+      word-wrap: break-word;
+    }
 
-th {
-  text-align: center;
-  font-weight: bold;
-}
+    th {
+      text-align: center;
+      font-weight: bold;
+    }
 
-/* Sl No */
-th:nth-child(1),
-td:nth-child(1) {
-  width: 35px;
-  text-align: center;
-}
+    /* Column widths */
+    th:nth-child(1),
+    td:nth-child(1) {
+      width: 8%;
+      text-align: center;
+    }
 
-/* Work */
-th:nth-child(2),
-td:nth-child(2) {
-  width: 55%;
-}
+    th:nth-child(2),
+    td:nth-child(2) {
+      width: 62%;
+    }
 
-/* Status */
-th:nth-child(3),
-td:nth-child(3) {
-  width: auto;
-}
+    th:nth-child(3),
+    td:nth-child(3) {
+      width: 30%;
+    }
 
-.footer {
-  margin-top: 20px;
-}
+    /* Footer */
+    .footer {
+      margin-top: 20px;
+      font-size: 13px;
+    }
 
-button {
-  margin-top: 15px;
-  padding: 10px 15px;
-  font-size: 14px;
-  cursor: pointer;
-}
-</style>
+    /* Action buttons (screen only) */
+    .action-buttons {
+      margin-top: 15px;
+    }
 
-<script>
-function printPDF() {
-  window.print();
-}
+    .action-buttons button {
+      padding: 6px 12px;
+      font-size: 13px;
+      margin-right: 8px;
+      cursor: pointer;
+    }
 
-function shareWhatsApp() {
-  const date = document.getElementById("reportDate").innerText;
-  const message =
-`Dear Kiran,
+    /* 🔥 CRITICAL: Hide buttons in PRINT + PDF */
+    @media print {
+      .action-buttons {
+        display: none !important;
+        visibility: hidden !important;
+        height: 0 !important;
+      }
 
-Please find my Daily Work Report for ${date}.
+      body {
+        margin: 20px;
+      }
+    }
+  </style>
 
-Regards,
-Sujay B V
-Manager – Educational Institutions & Operations
-Kidvento Education and Research Pvt. Ltd.`;
-
-  const url = "https://wa.me/?text=" + encodeURIComponent(message);
-  window.open(url, "_blank");
-}
-</script>
+  <script>
+    function shareWhatsApp() {
+      const text =
+        "Dear Kiran,%0A" +
+        "Please find my Daily Work Report for today.%0A%0A" +
+        "Regards,%0A" +
+        "Sujay B V";
+      window.open("https://wa.me/?text=" + text, "_blank");
+    }
+  </script>
 </head>
 
 <body>
 
-<div class="logo">
-  <img src="logo.png" alt="Kidvento Logo">
-</div>
+  <!-- LOGO -->
+  <div class="logo">
+    <img src="logo.png" alt="Kidvento Logo">
+  </div>
 
-<div class="header-text">
-  <strong>Dear Kiran,</strong><br>
-  Today’s Update – <span id="reportDate"></span>
-</div>
+  <!-- HEADER -->
+  <div class="header-text">
+    <strong>Dear Kiran,</strong><br>
+    Today’s Update – <strong>15-12-2025</strong>
+  </div>
 
-<table>
-  <tr>
-    <th>Sl. No.</th>
-    <th>Work / Activity</th>
-    <th>Status</th>
-  </tr>
-  <tr><td>1</td><td>Tender Master Sheet – Daily Update</td><td></td></tr>
-  <tr><td>2</td><td>Internal Team (Logistics & Training Team)</td><td></td></tr>
-  <tr><td>3</td><td>DDPI – Follow-ups</td><td></td></tr>
-  <tr><td>4</td><td>Other Tasks Completed</td><td></td></tr>
-  <tr><td>5</td><td>Pending Tasks</td><td></td></tr>
-  <tr><td>6</td><td>Plan for Next Working Day</td><td></td></tr>
-</table>
+  <!-- TABLE -->
+  <table>
+    <thead>
+      <tr>
+        <th>Sl. No.</th>
+        <th>Work / Activity</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Tender Master Sheet – Daily Update</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Internal Team (Logistics & Training Team)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>DDPI – Follow-ups</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Other Tasks Completed</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Pending Tasks</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>Plan for Next Working Day</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
 
-<div class="footer">
-  Regards,<br><br>
-  <strong>Sujay B V</strong><br>
-  Manager – Educational Institutions & Operations<br>
-  Kidvento Education and Research Pvt. Ltd.
-</div>
+  <!-- FOOTER -->
+  <div class="footer">
+    Regards,<br><br>
+    <strong>Sujay B V</strong><br>
+    Manager – Educational Institutions & Operations<br>
+    Kidvento Education and Research Pvt. Ltd.
+  </div>
 
-<button onclick="printPDF()">Print / Save as PDF</button>
-<button onclick="shareWhatsApp()">Share on WhatsApp</button>
-
-<script>
-/* Set date in DD-MM-YYYY */
-const d = new Date();
-document.getElementById("reportDate").innerText =
-  String(d.getDate()).padStart(2,'0') + "-" +
-  String(d.getMonth()+1).padStart(2,'0') + "-" +
-  d.getFullYear();
-</script>
+  <!-- BUTTONS (SCREEN ONLY) -->
+  <div class="action-buttons">
+    <button onclick="window.print()">Print / Save as PDF</button>
+    <button onclick="shareWhatsApp()">Share on WhatsApp</button>
+  </div>
 
 </body>
 </html>
