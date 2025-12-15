@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Daily Work Report PDF</title>
@@ -32,11 +32,8 @@ td:first-child{
 }
 
 td:nth-child(2){
-  width:42%;
-}
-
-td:nth-child(3){
-  width:50%;
+  width:32%;
+  font-weight:bold;
 }
 
 @media print{
@@ -47,16 +44,15 @@ td:nth-child(3){
 
 <body>
 
-<p><strong>Dear Kiran,</strong></p>
+<p><b>Dear Kiran,</b></p>
 <p>Today's Update – <span id="date"></span></p>
 
 <table>
 <tr>
-<th>Sl. No.</th>
-<th>Work / Activity</th>
-<th>Status</th>
+  <th>Sl. No.</th>
+  <th>Work / Activity</th>
+  <th>Status</th>
 </tr>
-
 <tr><td>1</td><td>Tender Master Sheet – Daily Update</td><td id="s1"></td></tr>
 <tr><td>2</td><td>Internal Team (Logistics & Training Team)</td><td id="s2"></td></tr>
 <tr><td>3</td><td>DDPI – Follow-ups</td><td id="s3"></td></tr>
@@ -67,19 +63,18 @@ td:nth-child(3){
 
 <br>
 <p>Regards,<br>
-<strong>Sujay B V</strong><br>
+<b>Sujay B V</b><br>
 Manager – Educational Institutions & Operations</p>
 
 <button onclick="window.print()">Print / Save as PDF</button>
 
 <script>
-const d = JSON.parse(localStorage.getItem("reportData"));
-document.getElementById("s1").innerText = d.t1;
-document.getElementById("s2").innerText = d.t2;
-document.getElementById("s3").innerText = d.t3;
-document.getElementById("s4").innerText = d.t4;
-document.getElementById("s5").innerText = d.t5;
-document.getElementById("s6").innerText = d.t6;
+document.getElementById("s1").innerText = localStorage.getItem("t1") || "";
+document.getElementById("s2").innerText = localStorage.getItem("t2") || "";
+document.getElementById("s3").innerText = localStorage.getItem("t3") || "";
+document.getElementById("s4").innerText = localStorage.getItem("t4") || "";
+document.getElementById("s5").innerText = localStorage.getItem("t5") || "";
+document.getElementById("s6").innerText = localStorage.getItem("t6") || "";
 
 document.getElementById("date").innerText =
   new Date().toLocaleDateString("en-GB");
