@@ -1,83 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>Daily Work Report PDF</title>
-
+<title>Daily Work Report</title>
 <style>
-body{
-  font-family: Arial, sans-serif;
-  padding:30px;
-}
+  body {
+    font-family: Arial, sans-serif;
+    background: #fff;
+    color: #000;
+    padding: 30px;
+  }
 
-table{
-  width:100%;
-  border-collapse:collapse;
-  margin-top:15px;
-}
+  h2 {
+    margin-bottom: 5px;
+  }
 
-th,td{
-  border:1px solid #000;
-  padding:8px;
-  vertical-align:top;
-}
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+  }
 
-th{
-  text-align:center;
-}
+  th, td {
+    border: 1px solid #000;
+    padding: 8px;
+    vertical-align: top;
+  }
 
-td:first-child{
-  text-align:center;
-  width:8%;
-}
+  th {
+    text-align: center;
+  }
 
-td:nth-child(2){
-  width:32%;
-  font-weight:bold;
-}
+  td:first-child {
+    text-align: center;
+    width: 8%;
+  }
 
-@media print{
-  button{display:none;}
-}
+  td:nth-child(2) {
+    width: 32%;
+    font-weight: bold;
+  }
+
+  td:nth-child(3) {
+    width: 60%;
+  }
+
+  .footer {
+    margin-top: 30px;
+  }
+
+  @media print {
+    button { display: none; }
+  }
 </style>
 </head>
 
 <body>
 
-<p><b>Dear Kiran,</b></p>
-<p>Today's Update – <span id="date"></span></p>
+<p><b>Dear Kiran,</b><br>
+Today's Update – <span id="d"></span></p>
 
 <table>
-<tr>
-  <th>Sl. No.</th>
-  <th>Work / Activity</th>
-  <th>Status</th>
-</tr>
-<tr><td>1</td><td>Tender Master Sheet – Daily Update</td><td id="s1"></td></tr>
-<tr><td>2</td><td>Internal Team (Logistics & Training Team)</td><td id="s2"></td></tr>
-<tr><td>3</td><td>DDPI – Follow-ups</td><td id="s3"></td></tr>
-<tr><td>4</td><td>Other Tasks Completed</td><td id="s4"></td></tr>
-<tr><td>5</td><td>Pending Tasks</td><td id="s5"></td></tr>
-<tr><td>6</td><td>Plan for Next Working Day</td><td id="s6"></td></tr>
+  <tr>
+    <th>Sl. No.</th>
+    <th>Work / Activity</th>
+    <th>Status</th>
+  </tr>
+
+  <tr><td>1</td><td>Tender Master Sheet – Daily Update</td><td id="r1"></td></tr>
+  <tr><td>2</td><td>Internal Team (Logistics & Training Team)</td><td id="r2"></td></tr>
+  <tr><td>3</td><td>DDPI – Follow-ups</td><td id="r3"></td></tr>
+  <tr><td>4</td><td>Other Tasks Completed</td><td id="r4"></td></tr>
+  <tr><td>5</td><td>Pending Tasks</td><td id="r5"></td></tr>
+  <tr><td>6</td><td>Plan for Next Working Day</td><td id="r6"></td></tr>
 </table>
 
-<br>
-<p>Regards,<br>
-<b>Sujay B V</b><br>
-Manager – Educational Institutions & Operations</p>
+<div class="footer">
+  <p>Regards,<br>
+  <b>Sujay B V</b><br>
+  Manager – Educational Institutions & Operations</p>
+</div>
 
 <button onclick="window.print()">Print / Save as PDF</button>
 
 <script>
-document.getElementById("s1").innerText = localStorage.getItem("t1") || "";
-document.getElementById("s2").innerText = localStorage.getItem("t2") || "";
-document.getElementById("s3").innerText = localStorage.getItem("t3") || "";
-document.getElementById("s4").innerText = localStorage.getItem("t4") || "";
-document.getElementById("s5").innerText = localStorage.getItem("t5") || "";
-document.getElementById("s6").innerText = localStorage.getItem("t6") || "";
+document.getElementById("d").innerText = new Date().toISOString().split("T")[0];
 
-document.getElementById("date").innerText =
-  new Date().toLocaleDateString("en-GB");
+for(let i=1;i<=6;i++){
+  document.getElementById("r"+i).innerText =
+    localStorage.getItem("report_t"+i) || "";
+}
 </script>
 
 </body>
