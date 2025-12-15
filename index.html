@@ -1,6 +1,110 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <meta charset="UTF-8">
+  <title>Daily Work Report</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 15px;
+      background: #f5f7fa;
+    }
+    h2 {
+      text-align: center;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+    }
+    textarea {
+      width: 100%;
+      min-height: 70px;
+      padding: 8px;
+      margin-top: 5px;
+    }
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      background: #2c7be5;
+      color: white;
+      border: none;
+      border-radius: 4px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      background: #fff;
+    }
+    table, th, td {
+      border: 1px solid #000;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+    }
+  </style>
+</head>
+
 <body>
-  <h1>Boss page is working</h1>
+
+<h2>Daily Work Report</h2>
+
+<label>Task 1: Tender Master Sheet – Daily Update</label>
+<textarea id="status1"></textarea>
+
+<label>Task 2: Internal Team (Logistics & Training Team)</label>
+<textarea id="status2"></textarea>
+
+<label>Task 3: DDPI – Follow-ups</label>
+<textarea id="status3"></textarea>
+
+<label>Other Tasks Completed</label>
+<textarea id="otherTasks"></textarea>
+
+<label>Pending Tasks</label>
+<textarea id="pendingTasks"></textarea>
+
+<label>Plan for Next Working Day</label>
+<textarea id="planNext"></textarea>
+
+<button onclick="generateReport()">Generate Report</button>
+
+<div id="output"></div>
+
+<script>
+function generateReport() {
+  var d = new Date();
+  var date = d.getDate() + "-" + (d.getMonth()+1) + "-" + d.getFullYear();
+
+  var html = "";
+  html += "<h2>DAILY WORK REPORT</h2>";
+
+  html += "<table>";
+  html += "<tr><td><b>Name</b></td><td>Sujay B V</td><td><b>Date</b></td><td>" + date + "</td></tr>";
+  html += "<tr><td><b>Designation</b></td><td>Manager – Educational Institutions & Operations</td>";
+  html += "<td><b>Organization</b></td><td>Kidvento Education and Research Pvt. Ltd.</td></tr>";
+  html += "</table>";
+
+  html += "<table>";
+  html += "<tr><th>Sl. No.</th><th>Work / Activity</th><th>Status</th></tr>";
+  html += "<tr><td>1</td><td>Tender Master Sheet – Daily Update</td><td>" + document.getElementById('status1').value + "</td></tr>";
+  html += "<tr><td>2</td><td>Internal Team (Logistics & Training Team)</td><td>" + document.getElementById('status2').value + "</td></tr>";
+  html += "<tr><td>3</td><td>DDPI – Follow-ups</td><td>" + document.getElementById('status3').value + "</td></tr>";
+  html += "</table>";
+
+  html += "<p><b>Other Tasks Completed</b><br>" + document.getElementById('otherTasks').value + "</p>";
+  html += "<p><b>Pending Tasks</b><br>" + document.getElementById('pendingTasks').value + "</p>";
+  html += "<p><b>Plan for Next Working Day</b><br>" + document.getElementById('planNext').value + "</p>";
+
+  document.getElementById("output").innerHTML = html;
+}
+</script>
+
 </body>
 </html>
