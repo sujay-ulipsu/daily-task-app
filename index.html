@@ -6,118 +6,116 @@
 <title>Daily Work Report</title>
 
 <style>
-body {
+body{
     font-family: Arial, sans-serif;
-    background: #f2f4f8;
-    margin: 0;
-    padding: 15px;
+    background:#f5f6fa;
+    margin:0;
+    padding:0;
 }
 
-.container {
-    max-width: 900px;
-    margin: auto;
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
+.wrapper{
+    max-width:720px;
+    margin:auto;
+    background:#fff;
+    padding:18px;
 }
 
-h1 {
-    text-align: center;
-    margin-bottom: 25px;
+h1{
+    text-align:center;
+    font-size:26px;
+    margin-bottom:22px;
 }
 
-label {
-    font-weight: bold;
-    display: block;
-    margin-top: 18px;
+label{
+    font-weight:700;
+    font-size:16px;
+    display:block;
+    margin:18px 0 6px;
 }
 
-textarea {
-    width: 100%;
-    min-height: 90px;
-    padding: 12px;
-    margin-top: 6px;
-    font-size: 16px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
+textarea{
+    width:100%;
+    min-height:90px;
+    padding:14px;
+    font-size:17px;
+    border:1px solid #999;
+    border-radius:4px;
+    resize:vertical;
+    box-sizing:border-box;
 }
 
-button {
-    width: 100%;
-    margin-top: 25px;
-    padding: 14px;
-    font-size: 16px;
-    background: #1e88e5;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
+button{
+    width:100%;
+    margin-top:22px;
+    padding:14px;
+    font-size:18px;
+    background:#1e73c9;
+    color:#fff;
+    border:none;
+    border-radius:4px;
+    font-weight:bold;
 }
 
-button:hover {
-    background: #1565c0;
+.report{
+    display:none;
+    margin-top:30px;
+    padding-top:10px;
 }
 
-/* REPORT */
-.report {
-    display: none;
-    margin-top: 40px;
+.report p{
+    font-size:14px;
+    margin:4px 0;
 }
 
-.report h2 {
-    margin-bottom: 6px;
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:12px;
+    font-size:13px;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
+th,td{
+    border:1px solid #000;
+    padding:8px;
+    vertical-align:top;
 }
 
-th, td {
-    border: 1px solid #000;
-    padding: 8px;
-    font-size: 14px;
+th{
+    text-align:center;
 }
 
-th {
-    text-align: center;
+td:first-child{
+    text-align:center;
+    width:40px;
 }
 
-td:first-child {
-    text-align: center;
-    width: 8%;
+td:nth-child(2){
+    width:55%;
 }
 
-td:nth-child(2) {
-    width: 42%;
+td:nth-child(3){
+    width:35%;
 }
 
-td:nth-child(3) {
-    width: 50%;
+.print-btn{
+    margin-top:20px;
 }
 
-.footer {
-    margin-top: 25px;
-}
-
-/* PRINT */
-@media print {
-    body * {
-        visibility: hidden;
+@media print{
+    body *{
+        visibility:hidden;
     }
-    .report, .report * {
-        visibility: visible;
+    .report, .report *{
+        visibility:visible;
     }
-    .report {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
+    .report{
+        position:absolute;
+        left:0;
+        top:0;
+        width:100%;
     }
-    button {
-        display: none !important;
+    button{
+        display:none;
     }
 }
 </style>
@@ -125,97 +123,72 @@ td:nth-child(3) {
 
 <body>
 
-<div class="container">
-    <h1>Daily Work Report</h1>
+<div class="wrapper">
 
-    <!-- INPUT FORM -->
-    <label>Task 1: Tender Master Sheet – Daily Update</label>
-    <textarea id="t1" placeholder="Type details here..."></textarea>
+<h1>Daily Work Report</h1>
 
-    <label>Task 2: Internal Team (Logistics & Training Team)</label>
-    <textarea id="t2" placeholder="Type details here..."></textarea>
+<label>Task 1: Tender Master Sheet – Daily Update</label>
+<textarea id="t1"></textarea>
 
-    <label>Task 3: DDPI – Follow-ups</label>
-    <textarea id="t3" placeholder="Type details here..."></textarea>
+<label>Task 2: Internal Team (Logistics & Training Team)</label>
+<textarea id="t2"></textarea>
 
-    <label>Other Tasks Completed</label>
-    <textarea id="t4" placeholder="Type details here..."></textarea>
+<label>Task 3: DDPI – Follow-ups</label>
+<textarea id="t3"></textarea>
 
-    <label>Pending Tasks</label>
-    <textarea id="t5" placeholder="Type details here..."></textarea>
+<label>Other Tasks Completed</label>
+<textarea id="t4"></textarea>
 
-    <label>Plan for Next Working Day</label>
-    <textarea id="t6" placeholder="Type details here..."></textarea>
+<label>Pending Tasks</label>
+<textarea id="t5"></textarea>
 
-    <button onclick="generateReport()">Generate Report</button>
+<label>Plan for Next Working Day</label>
+<textarea id="t6"></textarea>
 
-    <!-- REPORT -->
-    <div class="report" id="report">
-        <p><strong>Dear Kiran,</strong></p>
-        <p>Today's Update – <span id="date"></span></p>
+<button onclick="generate()">Generate Report</button>
 
-        <table>
-            <tr>
-                <th>Sl. No.</th>
-                <th>Work / Activity</th>
-                <th>Status</th>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Tender Master Sheet – Daily Update</td>
-                <td id="r1"></td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Internal Team (Logistics & Training Team)</td>
-                <td id="r2"></td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>DDPI – Follow-ups</td>
-                <td id="r3"></td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>Other Tasks Completed</td>
-                <td id="r4"></td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>Pending Tasks</td>
-                <td id="r5"></td>
-            </tr>
-            <tr>
-                <td>6</td>
-                <td>Plan for Next Working Day</td>
-                <td id="r6"></td>
-            </tr>
-        </table>
+<div class="report" id="report">
 
-        <div class="footer">
-            <p>Regards,</p>
-            <p><strong>Sujay B V</strong><br>
-            Manager – Educational Institutions & Operations</p>
-        </div>
+<p><strong>Dear Kiran,</strong></p>
+<p>Today's Update – <span id="date"></span></p>
 
-        <button onclick="window.print()">Print / Save as PDF</button>
-    </div>
+<table>
+<tr>
+<th>Sl. No.</th>
+<th>Work / Activity</th>
+<th>Status</th>
+</tr>
+<tr><td>1</td><td>Tender Master Sheet – Daily Update</td><td id="r1"></td></tr>
+<tr><td>2</td><td>Internal Team (Logistics & Training Team)</td><td id="r2"></td></tr>
+<tr><td>3</td><td>DDPI – Follow-ups</td><td id="r3"></td></tr>
+<tr><td>4</td><td>Other Tasks Completed</td><td id="r4"></td></tr>
+<tr><td>5</td><td>Pending Tasks</td><td id="r5"></td></tr>
+<tr><td>6</td><td>Plan for Next Working Day</td><td id="r6"></td></tr>
+</table>
+
+<p style="margin-top:18px;">Regards,</p>
+<p><strong>Sujay B V</strong><br>
+Manager – Educational Institutions & Operations</p>
+
+<button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+
+</div>
 </div>
 
 <script>
-function generateReport() {
-    document.getElementById("r1").innerText = document.getElementById("t1").value;
-    document.getElementById("r2").innerText = document.getElementById("t2").value;
-    document.getElementById("r3").innerText = document.getElementById("t3").value;
-    document.getElementById("r4").innerText = document.getElementById("t4").value;
-    document.getElementById("r5").innerText = document.getElementById("t5").value;
-    document.getElementById("r6").innerText = document.getElementById("t6").value;
+function generate(){
+    r1.innerText=t1.value;
+    r2.innerText=t2.value;
+    r3.innerText=t3.value;
+    r4.innerText=t4.value;
+    r5.innerText=t5.value;
+    r6.innerText=t6.value;
 
-    const today = new Date();
-    const formatted = today.toLocaleDateString('en-GB');
-    document.getElementById("date").innerText = formatted;
+    const d=new Date();
+    date.innerText=d.toLocaleDateString('en-GB');
 
-    document.getElementById("report").style.display = "block";
+    report.style.display="block";
+    report.scrollIntoView({behavior:"smooth"});
 }
 </script>
 
