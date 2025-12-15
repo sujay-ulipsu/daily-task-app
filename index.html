@@ -6,89 +6,166 @@
 <title>Daily Work Report</title>
 
 <style>
-body{
-  font-family: Arial, sans-serif;
-  background:#f4f6f8;
-  margin:0;
-  padding:15px;
-}
+  :root {
+    --bg: #121212;
+    --card: #1e1e1e;
+    --text: #ffffff;
+    --border: #333;
+    --btn: #1e88e5;
+  }
 
-.container{
-  max-width:700px;
-  margin:auto;
-  background:#fff;
-  padding:20px;
-  border-radius:10px;
-}
+  body.light {
+    --bg: #f4f6f8;
+    --card: #ffffff;
+    --text: #000000;
+    --border: #ccc;
+    --btn: #1e88e5;
+  }
 
-h2{
-  text-align:center;
-  margin-bottom:20px;
-}
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+  }
 
-label{
-  font-weight:bold;
-  display:block;
-  margin-top:15px;
-}
+  .container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+  }
 
-textarea{
-  width:100%;
-  min-height:80px;
-  padding:10px;
-  font-size:16px;
-  border:1px solid #ccc;
-  border-radius:6px;
-}
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
 
-button{
-  width:100%;
-  margin-top:25px;
-  padding:14px;
-  font-size:18px;
-  background:#1976d2;
-  color:white;
-  border:none;
-  border-radius:6px;
-}
+  .card {
+    background: var(--card);
+    padding: 16px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
+
+  label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  textarea {
+    width: 100%;
+    min-height: 90px;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    resize: vertical;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 18px;
+    background: var(--btn);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  .top-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .toggle {
+    cursor: pointer;
+    font-size: 14px;
+  }
 </style>
 </head>
 
 <body>
 <div class="container">
-<h2>Daily Work Report</h2>
 
-<label>Task 1: Tender Master Sheet – Daily Update</label>
-<textarea id="t1"></textarea>
+  <div class="top-actions">
+    <div class="toggle" onclick="toggleTheme()">🌙 Toggle Theme</div>
+    <div id="date"></div>
+  </div>
 
-<label>Task 2: Internal Team (Logistics & Training Team)</label>
-<textarea id="t2"></textarea>
+  <h1>Daily Work Report</h1>
 
-<label>Task 3: DDPI – Follow-ups</label>
-<textarea id="t3"></textarea>
+  <div class="card">
+    <label>Task 1: Tender Master Sheet – Daily Update</label>
+    <textarea id="t1"></textarea>
+  </div>
 
-<label>Other Tasks Completed</label>
-<textarea id="t4"></textarea>
+  <div class="card">
+    <label>Task 2: Internal Team (Logistics & Training Team)</label>
+    <textarea id="t2"></textarea>
+  </div>
 
-<label>Pending Tasks</label>
-<textarea id="t5"></textarea>
+  <div class="card">
+    <label>Task 3: DDPI – Follow-ups</label>
+    <textarea id="t3"></textarea>
+  </div>
 
-<label>Plan for Next Working Day</label>
-<textarea id="t6"></textarea>
+  <div class="card">
+    <label>Other Tasks Completed</label>
+    <textarea id="t4"></textarea>
+  </div>
 
-<button onclick="generate()">Generate PDF</button>
+  <div class="card">
+    <label>Pending Tasks</label>
+    <textarea id="t5"></textarea>
+  </div>
+
+  <div class="card">
+    <label>Plan for Next Working Day</label>
+    <textarea id="t6"></textarea>
+  </div>
+
+  <button class="btn" onclick="generatePDF()">Generate PDF</button>
+
 </div>
 
 <script>
-function generate(){
-  localStorage.setItem("t1", t1.value);
-  localStorage.setItem("t2", t2.value);
-  localStorage.setItem("t3", t3.value);
-  localStorage.setItem("t4", t4.value);
-  localStorage.setItem("t5", t5.value);
-  localStorage.setItem("t6", t6.value);
+const today = new Date().toISOString().split("T")[0];
+document.getElementById("date").innerText = today;
 
-  window.location.href = "report.html";
+const fields = ["t1","t2","t3","t4","t5","t6"];
+
+// Autosave per day
+fields.forEach(id => {
+  const el = document.getElementById(id);
+  el.value = localStorage.getItem(today + id) || "";
+  el.addEventListener("input", () => {
+    localStorage.setItem(today + id, el.value);
+  });
+});
+
+// Theme
+if (!localStorage.getItem("theme")) localStorage.setItem("theme","dark");
+document.body.className = localStorage.getItem("theme");
+
+function toggleTheme(){
+  const t = document.body.className === "dark" ? "light" : "dark";
+  document.body.className = t;
+  localStorage.setItem("theme", t);
+}
+
+// Generate PDF
+function generatePDF(){
+  fields.forEach(id => {
+    localStorage.setItem("report_" + id, document.getElementById(id).value);
+  });
+  window.open("report.html", "_blank");
 }
 </script>
 </body>
