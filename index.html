@@ -1,122 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Daily Work Report</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Work Report</title>
 
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #ffffff;
-      color: #000;
-    }
+<style>
+body{
+  font-family: Arial, sans-serif;
+  background:#f4f6f8;
+  margin:0;
+  padding:15px;
+}
 
-    .page {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 20px;
-    }
+.container{
+  max-width:700px;
+  margin:auto;
+  background:#fff;
+  padding:20px;
+  border-radius:10px;
+}
 
-    h1 {
-      text-align: center;
-      font-size: 28px;
-      margin-bottom: 30px;
-    }
+h2{
+  text-align:center;
+  margin-bottom:20px;
+}
 
-    .task {
-      margin-bottom: 28px;
-    }
+label{
+  font-weight:bold;
+  display:block;
+  margin-top:15px;
+}
 
-    .task label {
-      display: block;
-      font-weight: bold;
-      font-size: 18px;
-      margin-bottom: 8px;
-    }
+textarea{
+  width:100%;
+  min-height:80px;
+  padding:10px;
+  font-size:16px;
+  border:1px solid #ccc;
+  border-radius:6px;
+}
 
-    textarea {
-      width: 100%;
-      min-height: 110px;
-      font-size: 17px;
-      padding: 12px;
-      border: 1px solid #999;
-      border-radius: 4px;
-      resize: vertical;
-      box-sizing: border-box;
-    }
-
-    .btn {
-      width: 100%;
-      margin-top: 30px;
-      padding: 15px;
-      font-size: 18px;
-      background: #1976d2;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    .btn:hover {
-      background: #125aa0;
-    }
-  </style>
+button{
+  width:100%;
+  margin-top:25px;
+  padding:14px;
+  font-size:18px;
+  background:#1976d2;
+  color:white;
+  border:none;
+  border-radius:6px;
+}
+</style>
 </head>
 
 <body>
-  <div class="page">
-    <h1>Daily Work Report</h1>
+<div class="container">
+<h2>Daily Work Report</h2>
 
-    <div class="task">
-      <label>Task 1: Tender Master Sheet – Daily Update</label>
-      <textarea id="t1" placeholder="Type details here..."></textarea>
-    </div>
+<label>Task 1: Tender Master Sheet – Daily Update</label>
+<textarea id="t1"></textarea>
 
-    <div class="task">
-      <label>Task 2: Internal Team (Logistics & Training Team)</label>
-      <textarea id="t2" placeholder="Type details here..."></textarea>
-    </div>
+<label>Task 2: Internal Team (Logistics & Training Team)</label>
+<textarea id="t2"></textarea>
 
-    <div class="task">
-      <label>Task 3: DDPI – Follow-ups</label>
-      <textarea id="t3" placeholder="Type details here..."></textarea>
-    </div>
+<label>Task 3: DDPI – Follow-ups</label>
+<textarea id="t3"></textarea>
 
-    <div class="task">
-      <label>Other Tasks Completed</label>
-      <textarea id="t4" placeholder="Type details here..."></textarea>
-    </div>
+<label>Other Tasks Completed</label>
+<textarea id="t4"></textarea>
 
-    <div class="task">
-      <label>Pending Tasks</label>
-      <textarea id="t5" placeholder="Type details here..."></textarea>
-    </div>
+<label>Pending Tasks</label>
+<textarea id="t5"></textarea>
 
-    <div class="task">
-      <label>Plan for Next Working Day</label>
-      <textarea id="t6" placeholder="Type details here..."></textarea>
-    </div>
+<label>Plan for Next Working Day</label>
+<textarea id="t6"></textarea>
 
-    <button class="btn" onclick="generatePDF()">Generate PDF</button>
-  </div>
+<button onclick="generate()">Generate PDF</button>
+</div>
 
-  <script>
-    function generatePDF() {
-      const data = {
-        t1: document.getElementById("t1").value,
-        t2: document.getElementById("t2").value,
-        t3: document.getElementById("t3").value,
-        t4: document.getElementById("t4").value,
-        t5: document.getElementById("t5").value,
-        t6: document.getElementById("t6").value
-      };
+<script>
+function generate(){
+  localStorage.setItem("t1", t1.value);
+  localStorage.setItem("t2", t2.value);
+  localStorage.setItem("t3", t3.value);
+  localStorage.setItem("t4", t4.value);
+  localStorage.setItem("t5", t5.value);
+  localStorage.setItem("t6", t6.value);
 
-      localStorage.setItem("dailyReportData", JSON.stringify(data));
-      window.location.href = "report.html";
-    }
-  </script>
+  window.location.href = "report.html";
+}
+</script>
 </body>
 </html>
