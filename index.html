@@ -13,6 +13,7 @@
     }
     h2 {
       text-align: center;
+      margin-bottom: 20px;
     }
     label {
       font-weight: bold;
@@ -37,86 +38,14 @@
       border-radius: 4px;
       cursor: pointer;
     }
-    button:hover {
-      background: #1a5fd0;
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
     }
-    #output {
-      min-height: 260px;
-      background: #fff;
+    table, th, td {
+      border: 1px solid #000;
     }
-  </style>
-</head>
-
-<body>
-
-  <h2>Daily Work Report</h2>
-
-  <label>Task 1: Tender Master Sheet – Daily Update</label>
-  <textarea id="status1" placeholder="Enter status..."></textarea>
-
-  <label>Task 2: Internal Team (Logistics & Training Team)</label>
-  <textarea id="status2" placeholder="Enter status..."></textarea>
-
-  <label>Task 3: DDPI – Follow-ups</label>
-  <textarea id="status3" placeholder="Enter status..."></textarea>
-
-  <label>Other Tasks Completed</label>
-  <textarea id="otherTasks" placeholder="Enter other completed tasks..."></textarea>
-
-  <label>Pending Tasks</label>
-  <textarea id="pendingTasks" placeholder="Enter pending tasks..."></textarea>
-
-  <label>Plan for Next Working Day</label>
-  <textarea id="planNext" placeholder="Enter plan..."></textarea>
-
-  <button onclick="generateReport()">Generate Report</button>
-
-  <label>Generated Report</label>
-  <textarea id="output" readonly></textarea>
-
-  <script>
-    function generateReport() {
-      const now = new Date();
-      const date = now.toISOString().split("T")[0];
-      const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-      const report = `
-DAILY WORK REPORT
-
-Date: ${date}
-Time: ${time}
-
-Employee Name: Sujay B V
-Designation: Manager – Educational Institutions & Operations
-
-Task 1:
-Tender Master Sheet – Daily Update
-Status:
-${status1.value}
-
-Task 2:
-Internal Team (Logistics & Training Team)
-Status:
-${status2.value}
-
-Task 3:
-DDPI – Follow-ups
-Status:
-${status3.value}
-
-Other Tasks Completed:
-${otherTasks.value}
-
-Pending Tasks:
-${pendingTasks.value}
-
-Plan for Next Working Day:
-${planNext.value}
-      `;
-
-      document.getElementById("output").value = report.trim();
-    }
-  </script>
-
-</body>
-</html>
+    th, td {
+      padding: 8px;
+      text-align: left;
