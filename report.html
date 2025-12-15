@@ -1,182 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Daily Work Report</title>
+<meta charset="UTF-8">
+<title>Daily Work Report</title>
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 40px;
-      color: #000;
-    }
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 30px;
+  color: #000;
+}
 
-    /* LOGO */
-    .logo {
-      text-align: center;
-      margin-bottom: 15px;
-    }
+.logo {
+  text-align: center;
+  margin-bottom: 10px;
+}
 
-    .logo img {
-      max-height: 70px;
-    }
+.logo img {
+  max-width: 160px;
+}
 
-    /* HEADER TEXT */
-    .header-text {
-      margin-bottom: 15px;
-      font-size: 14px;
-    }
+.header-text {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 
-    .header-text strong {
-      display: block;
-      margin-bottom: 4px;
-    }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  table-layout: fixed;
+}
 
-    /* TABLE */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      table-layout: fixed;
-      margin-top: 10px;
-    }
+th, td {
+  border: 1px solid #000;
+  padding: 6px;
+  vertical-align: top;
+  word-break: break-word;
+}
 
-    th, td {
-      border: 1px solid #000;
-      padding: 6px;
-      vertical-align: top;
-      word-break: break-word;
-    }
+th {
+  text-align: center;
+  font-weight: bold;
+}
 
-    th {
-      text-align: center;
-      font-weight: bold;
-    }
+/* Sl No */
+th:nth-child(1),
+td:nth-child(1) {
+  width: 35px;
+  text-align: center;
+}
 
-    /* SERIAL NUMBER */
-    th:nth-child(1),
-    td:nth-child(1) {
-      width: 35px;
-      text-align: center;
-      padding: 4px;
-    }
+/* Work */
+th:nth-child(2),
+td:nth-child(2) {
+  width: 55%;
+}
 
-    /* WORK / ACTIVITY */
-    th:nth-child(2),
-    td:nth-child(2) {
-      width: 55%;
-    }
+/* Status */
+th:nth-child(3),
+td:nth-child(3) {
+  width: auto;
+}
 
-    /* STATUS */
-    th:nth-child(3),
-    td:nth-child(3) {
-      width: auto;
-    }
+.footer {
+  margin-top: 20px;
+}
 
-    /* FOOTER */
-    .footer {
-      margin-top: 20px;
-      font-size: 14px;
-    }
+button {
+  margin-top: 15px;
+  padding: 10px 15px;
+  font-size: 14px;
+  cursor: pointer;
+}
+</style>
 
-    .print-btn {
-      margin-top: 20px;
-    }
+<script>
+function printPDF() {
+  window.print();
+}
 
-    /* HIDE BUTTON IN PDF */
-    @media print {
-      .print-btn {
-        display: none;
-      }
-    }
-  </style>
+function shareWhatsApp() {
+  const date = document.getElementById("reportDate").innerText;
+  const message =
+`Dear Kiran,
+
+Please find my Daily Work Report for ${date}.
+
+Regards,
+Sujay B V
+Manager – Educational Institutions & Operations
+Kidvento Education and Research Pvt. Ltd.`;
+
+  const url = "https://wa.me/?text=" + encodeURIComponent(message);
+  window.open(url, "_blank");
+}
+</script>
 </head>
 
 <body>
 
-  <!-- LOGO -->
-  <div class="logo">
-    <img src="logo.png" alt="Kidvento Logo">
-  </div>
+<div class="logo">
+  <img src="logo.png" alt="Kidvento Logo">
+</div>
 
-  <!-- HEADER -->
-  <div class="header-text">
-    <strong>Dear Kiran,</strong>
-    Today’s Update – <span id="date"></span>
-  </div>
+<div class="header-text">
+  <strong>Dear Kiran,</strong><br>
+  Today’s Update – <span id="reportDate"></span>
+</div>
 
-  <!-- TABLE -->
-  <table>
-    <thead>
-      <tr>
-        <th>Sl. No.</th>
-        <th>Work / Activity</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>Tender Master Sheet – Daily Update</td>
-        <td id="t1"></td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>Internal Team (Logistics & Training Team)</td>
-        <td id="t2"></td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>DDPI – Follow-ups</td>
-        <td id="t3"></td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td>Other Tasks Completed</td>
-        <td id="t4"></td>
-      </tr>
-      <tr>
-        <td>5</td>
-        <td>Pending Tasks</td>
-        <td id="t5"></td>
-      </tr>
-      <tr>
-        <td>6</td>
-        <td>Plan for Next Working Day</td>
-        <td id="t6"></td>
-      </tr>
-    </tbody>
-  </table>
+<table>
+  <tr>
+    <th>Sl. No.</th>
+    <th>Work / Activity</th>
+    <th>Status</th>
+  </tr>
+  <tr><td>1</td><td>Tender Master Sheet – Daily Update</td><td></td></tr>
+  <tr><td>2</td><td>Internal Team (Logistics & Training Team)</td><td></td></tr>
+  <tr><td>3</td><td>DDPI – Follow-ups</td><td></td></tr>
+  <tr><td>4</td><td>Other Tasks Completed</td><td></td></tr>
+  <tr><td>5</td><td>Pending Tasks</td><td></td></tr>
+  <tr><td>6</td><td>Plan for Next Working Day</td><td></td></tr>
+</table>
 
-  <!-- FOOTER -->
-  <div class="footer">
-    Regards,<br><br>
-    <strong>Sujay B V</strong><br>
-    Manager – Educational Institutions & Operations<br>
-    Kidvento Education and Research Pvt. Ltd.
-  </div>
+<div class="footer">
+  Regards,<br><br>
+  <strong>Sujay B V</strong><br>
+  Manager – Educational Institutions & Operations<br>
+  Kidvento Education and Research Pvt. Ltd.
+</div>
 
-  <!-- PRINT BUTTON -->
-  <div class="print-btn">
-    <button onclick="window.print()">Print / Save as PDF</button>
-  </div>
+<button onclick="printPDF()">Print / Save as PDF</button>
+<button onclick="shareWhatsApp()">Share on WhatsApp</button>
 
-  <!-- SCRIPT -->
-  <script>
-    // Date DD-MM-YYYY
-    const d = new Date();
-    const day = String(d.getDate()).padStart(2, '0');
-    const month = String(d.getMonth() + 1).padStart(2, '0');
-    const year = d.getFullYear();
-    document.getElementById("date").innerText = `${day}-${month}-${year}`;
-
-    // Load data from localStorage
-    for (let i = 1; i <= 6; i++) {
-      const data = localStorage.getItem("task" + i);
-      if (data) {
-        document.getElementById("t" + i).innerText = data;
-      }
-    }
-  </script>
+<script>
+/* Set date in DD-MM-YYYY */
+const d = new Date();
+document.getElementById("reportDate").innerText =
+  String(d.getDate()).padStart(2,'0') + "-" +
+  String(d.getMonth()+1).padStart(2,'0') + "-" +
+  d.getFullYear();
+</script>
 
 </body>
 </html>
