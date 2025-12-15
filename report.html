@@ -31,13 +31,14 @@
   table {
     width: 100%;
     border-collapse: collapse;
-    table-layout: fixed; /* 🔑 IMPORTANT */
+    table-layout: fixed;
     font-size: 13px;
   }
 
+  /* 🔥 COLUMN CONTROL */
   col.slno { width: 6%; }
-  col.work { width: 54%; }
-  col.status { width: 40%; }
+  col.work { width: 45%; }   /* MAX TIGHTENED */
+  col.status { width: 49%; } /* MORE SPACE */
 
   th, td {
     border: 1px solid #000;
@@ -74,7 +75,7 @@
     cursor: pointer;
   }
 
-  /* 🔥 Hide buttons in PDF */
+  /* Hide buttons in PDF */
   @media print {
     .buttons {
       display: none !important;
