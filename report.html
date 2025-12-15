@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Daily Work Report PDF</title>
+<title>Daily Work Report</title>
 
 <style>
     body {
@@ -13,7 +13,7 @@
 
     .logo {
         text-align: center;
-        margin-bottom: 20px;
+        margin-bottom: 18px;
     }
 
     .logo img {
@@ -21,15 +21,16 @@
     }
 
     .header-text {
-        margin-bottom: 14px;
+        margin-bottom: 16px;
         line-height: 1.6;
+        font-size: 14px;
     }
 
     table {
         width: 100%;
         border-collapse: collapse;
         table-layout: fixed;
-        margin-top: 10px;
+        margin-top: 8px;
     }
 
     th, td {
@@ -46,17 +47,16 @@
         font-weight: bold;
     }
 
-    /* Column widths (IMPORTANT) */
     col.slno   { width: 6%; }
-    col.work   { width: 34%; }
-    col.status { width: 60%; }
+    col.work   { width: 32%; }
+    col.status { width: 62%; }
 
     .task-title {
         font-weight: bold;
     }
 
     .footer {
-        margin-top: 20px;
+        margin-top: 22px;
         line-height: 1.4;
         font-size: 13px;
     }
@@ -150,26 +150,33 @@
     Kidvento Education and Research Pvt. Ltd.
 </div>
 
-<!-- ACTION BUTTONS -->
+<!-- ACTIONS -->
 <div class="actions">
     <button onclick="window.print()">Print / Save as PDF</button>
     <button onclick="shareWhatsApp()">Share on WhatsApp</button>
 </div>
 
 <script>
-    // Load selected date
-    const selectedDate = localStorage.getItem("currentReportDate");
-    const key = "dailyReport-" + selectedDate;
+    // ---- DATE HANDLING (AUTO FIX) ----
+    let storedDate = localStorage.getItem("currentReportDate");
+    let reportDate;
+
+    if (storedDate) {
+        reportDate = new Date(storedDate);
+    } else {
+        reportDate = new Date(); // AUTO TODAY
+    }
+
+    const dd = String(reportDate.getDate()).padStart(2, '0');
+    const mm = String(reportDate.getMonth() + 1).padStart(2, '0');
+    const yyyy = reportDate.getFullYear();
+
+    document.getElementById("reportDate").innerText = `${dd}-${mm}-${yyyy}`;
+
+    // ---- LOAD DATA ----
+    const key = "dailyReport-" + `${yyyy}-${mm}-${dd}`;
     const data = JSON.parse(localStorage.getItem(key)) || {};
 
-    // Format date DD-MM-YYYY
-    const d = new Date(selectedDate);
-    document.getElementById("reportDate").innerText =
-        String(d.getDate()).padStart(2, '0') + "-" +
-        String(d.getMonth() + 1).padStart(2, '0') + "-" +
-        d.getFullYear();
-
-    // Fill status cells
     for (let i = 1; i <= 6; i++) {
         document.getElementById("s" + i).innerText = data["task" + i] || "";
     }
