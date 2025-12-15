@@ -39,9 +39,7 @@ body{
   gap:14px;
   margin-bottom:10px;
 }
-.header img{
-  height:48px;
-}
+.header img{ height:48px; }
 .header h1{
   flex:1;
   text-align:center;
@@ -55,10 +53,7 @@ body{
   align-items:center;
   margin:10px 0 20px;
 }
-.toggle{
-  cursor:pointer;
-  font-size:14px;
-}
+.toggle{ cursor:pointer; font-size:14px; }
 
 /* TASK CARDS */
 .card{
@@ -101,13 +96,16 @@ input{
   padding:6px;
   font-size:14px;
 }
+.hidden{
+  display:none;
+}
 </style>
 </head>
 
 <body>
 <div class="container">
 
-  <!-- HEADER WITH LOGO -->
+  <!-- HEADER -->
   <div class="header">
     <img src="logo.png" alt="Kidvento Logo">
     <h1>Daily Work Report</h1>
@@ -117,44 +115,21 @@ input{
   <div class="top-row">
     <div>
       Date:
-      <input type="text" id="datePicker" readonly>
+      <input type="text" id="dateDisplay" readonly onclick="openCalendar()">
+      <input type="date" id="datePicker" class="hidden">
     </div>
     <div class="toggle" onclick="toggleTheme()">🌙 Toggle Theme</div>
   </div>
 
   <!-- TASKS -->
-  <div class="card">
-    <label>Task 1: Tender Master Sheet – Daily Update</label>
-    <textarea id="t1"></textarea>
-  </div>
-
-  <div class="card">
-    <label>Task 2: Internal Team (Logistics & Training Team)</label>
-    <textarea id="t2"></textarea>
-  </div>
-
-  <div class="card">
-    <label>Task 3: DDPI – Follow-ups</label>
-    <textarea id="t3"></textarea>
-  </div>
-
-  <div class="card">
-    <label>Other Tasks Completed</label>
-    <textarea id="t4"></textarea>
-  </div>
-
-  <div class="card">
-    <label>Pending Tasks</label>
-    <textarea id="t5"></textarea>
-  </div>
-
-  <div class="card">
-    <label>Plan for Next Working Day</label>
-    <textarea id="t6"></textarea>
-  </div>
+  <div class="card"><label>Task 1: Tender Master Sheet – Daily Update</label><textarea id="t1"></textarea></div>
+  <div class="card"><label>Task 2: Internal Team (Logistics & Training Team)</label><textarea id="t2"></textarea></div>
+  <div class="card"><label>Task 3: DDPI – Follow-ups</label><textarea id="t3"></textarea></div>
+  <div class="card"><label>Other Tasks Completed</label><textarea id="t4"></textarea></div>
+  <div class="card"><label>Pending Tasks</label><textarea id="t5"></textarea></div>
+  <div class="card"><label>Plan for Next Working Day</label><textarea id="t6"></textarea></div>
 
   <button class="btn" onclick="generatePDF()">Generate PDF</button>
-
 </div>
 
 <script>
@@ -169,18 +144,35 @@ function toggleTheme(){
   localStorage.setItem("theme",t);
 }
 
-/* DATE FORMAT: DD-MM-YYYY */
-function formatDate(date){
+/* DATE FORMAT */
+function toDDMMYYYY(date){
   const d=String(date.getDate()).padStart(2,"0");
   const m=String(date.getMonth()+1).padStart(2,"0");
   const y=date.getFullYear();
   return `${d}-${m}-${y}`;
 }
+function toISO(date){
+  return date.toISOString().split("T")[0];
+}
 
-const picker=document.getElementById("datePicker");
-const todayFormatted=formatDate(new Date());
-picker.value=todayFormatted;
-loadData(todayFormatted);
+const datePicker=document.getElementById("datePicker");
+const dateDisplay=document.getElementById("dateDisplay");
+
+const today=new Date();
+datePicker.value=toISO(today);
+dateDisplay.value=toDDMMYYYY(today);
+loadData(dateDisplay.value);
+
+function openCalendar(){
+  datePicker.showPicker();
+}
+
+datePicker.addEventListener("change",()=>{
+  const d=new Date(datePicker.value);
+  const formatted=toDDMMYYYY(d);
+  dateDisplay.value=formatted;
+  loadData(formatted);
+});
 
 /* LOAD DATA */
 function loadData(date){
@@ -194,7 +186,7 @@ function loadData(date){
 fields.forEach(id=>{
   document.getElementById(id).addEventListener("input",()=>{
     localStorage.setItem(
-      picker.value+"_"+id,
+      dateDisplay.value+"_"+id,
       document.getElementById(id).value
     );
   });
@@ -202,7 +194,7 @@ fields.forEach(id=>{
 
 /* GENERATE PDF */
 function generatePDF(){
-  localStorage.setItem("report_date", picker.value);
+  localStorage.setItem("report_date", dateDisplay.value);
   fields.forEach(id=>{
     localStorage.setItem("report_"+id,
       document.getElementById(id).value
