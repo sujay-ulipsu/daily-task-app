@@ -7,8 +7,8 @@
 <style>
     body {
         font-family: Arial, sans-serif;
-        background: #f4f6f8;
-        padding: 15px;
+        margin: 30px;
+        color: #000;
     }
 
     h2 {
@@ -16,82 +16,92 @@
         margin-bottom: 20px;
     }
 
-    label {
-        font-weight: bold;
+    .top-text {
+        margin-bottom: 15px;
+        font-size: 15px;
+    }
+
+    .top-text strong {
         display: block;
-        margin-top: 15px;
-    }
-
-    textarea {
-        width: 100%;
-        min-height: 60px;
-        padding: 8px;
-        font-size: 14px;
-        box-sizing: border-box;
-    }
-
-    button {
-        width: 100%;
-        margin-top: 20px;
-        padding: 12px;
-        font-size: 16px;
-        background: #1a73e8;
-        color: #fff;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
-    .report-box {
-        background: #fff;
-        padding: 20px;
-        margin-top: 30px;
-        border: 1px solid #ccc;
+        margin-bottom: 5px;
     }
 
     table {
         width: 100%;
         border-collapse: collapse;
-        margin-top: 15px;
-        font-size: 14px;
+        margin-top: 10px;
     }
 
     th, td {
         border: 1px solid #000;
-        padding: 8px;
+        padding: 8px 10px;
+        font-size: 14px;
         vertical-align: top;
     }
 
     th {
-        background: #f0f0f0;
         text-align: center;
+        background-color: #f2f2f2;
     }
 
-    .print-btn {
-        margin-top: 20px;
-        background: #0b8043;
+    /* Sl. No */
+    th:nth-child(1),
+    td:nth-child(1) {
+        width: 45px;
+        text-align: center;
+        white-space: nowrap;
     }
 
-    @media print {
-        body {
-            background: #fff;
-        }
-        textarea, button, h2, label {
-            display: none;
-        }
-        .print-btn {
-            display: none;
-        }
-        .report-box {
-            border: none;
-            margin-top: 0;
-        }
+    /* Work / Activity */
+    th:nth-child(2),
+    td:nth-child(2) {
+        width: 50%;
+        text-align: left;
+        font-weight: 500;
+    }
+
+    /* Status */
+    th:nth-child(3),
+    td:nth-child(3) {
+        width: 45%;
+        text-align: left;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    textarea {
+        width: 100%;
+        height: 70px;
+        margin-bottom: 10px;
+        font-size: 14px;
+        padding: 6px;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        background-color: #2f80ed;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    .report {
+        margin-top: 25px;
+    }
+
+    .footer {
+        margin-top: 30px;
+        font-size: 14px;
     }
 </style>
 </head>
 
 <body>
 
+<!-- INPUT SECTION -->
 <h2>Daily Work Report</h2>
 
 <label>Task 1: Tender Master Sheet – Daily Update</label>
@@ -114,78 +124,69 @@
 
 <button onclick="generateReport()">Generate Report</button>
 
-<div id="output"></div>
+<!-- OUTPUT SECTION -->
+<div class="report" id="output"></div>
 
 <script>
+function todayDate() {
+    const d = new Date();
+    return d.getDate().toString().padStart(2, '0') + '-' +
+           (d.getMonth() + 1).toString().padStart(2, '0') + '-' +
+           d.getFullYear();
+}
+
 function generateReport() {
 
-    var t1 = document.getElementById("t1");
-    var t2 = document.getElementById("t2");
-    var t3 = document.getElementById("t3");
-    var t4 = document.getElementById("t4");
-    var t5 = document.getElementById("t5");
-    var t6 = document.getElementById("t6");
+    document.getElementById("output").innerHTML = `
+    <div class="top-text">
+        <strong>Dear Kiran,</strong>
+        Today’s Update – ${todayDate()}
+    </div>
 
-    var today = new Date();
-    var date = today.toLocaleDateString("en-GB");
+    <table>
+        <tr>
+            <th>Sl. No.</th>
+            <th>Work / Activity</th>
+            <th>Status</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Tender Master Sheet – Daily Update</td>
+            <td>${t1.value}</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Internal Team (Logistics & Training Team)</td>
+            <td>${t2.value}</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>DDPI – Follow-ups</td>
+            <td>${t3.value}</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Other Tasks Completed</td>
+            <td>${t4.value}</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Pending Tasks</td>
+            <td>${t5.value}</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>Plan for Next Working Day</td>
+            <td>${t6.value}</td>
+        </tr>
+    </table>
 
-    var html = `
-    <div class="report-box">
-
-        <p><b>Dear Kiran,</b></p>
-        <p><b>Today’s Update – ${date}</b></p>
-
-        <table>
-            <tr>
-                <th>Sl. No.</th>
-                <th>Work / Activity</th>
-                <th>Status</th>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Tender Master Sheet – Daily Update</td>
-                <td>${t1.value}</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Internal Team (Logistics & Training Team)</td>
-                <td>${t2.value}</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>DDPI – Follow-ups</td>
-                <td>${t3.value}</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>Other Tasks Completed</td>
-                <td>${t4.value}</td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>Pending Tasks</td>
-                <td>${t5.value}</td>
-            </tr>
-            <tr>
-                <td>6</td>
-                <td>Plan for Next Working Day</td>
-                <td>${t6.value}</td>
-            </tr>
-        </table>
-
-        <br>
-
-        <p>
-            Regards,<br>
-            <b>Sujay B V</b><br>
-            Manager – Educational Institutions & Operations
-        </p>
-
-        <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+    <div class="footer">
+        Regards,<br><br>
+        <strong>Sujay B V</strong><br>
+        Manager – Educational Institutions & Operations
     </div>
     `;
-
-    document.getElementById("output").innerHTML = html;
 }
 </script>
 
