@@ -3,16 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Daily Work Report</title>
+
 <style>
   body {
     font-family: Arial, sans-serif;
     background: #fff;
     color: #000;
     padding: 30px;
-  }
-
-  h2 {
-    margin-bottom: 5px;
   }
 
   table {
@@ -84,7 +81,8 @@ Today's Update – <span id="d"></span></p>
 <button onclick="window.print()">Print / Save as PDF</button>
 
 <script>
-document.getElementById("d").innerText = new Date().toISOString().split("T")[0];
+document.getElementById("d").innerText =
+  localStorage.getItem("report_date") || "";
 
 for(let i=1;i<=6;i++){
   document.getElementById("r"+i).innerText =
