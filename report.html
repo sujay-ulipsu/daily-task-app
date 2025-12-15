@@ -5,175 +5,184 @@
 <title>Daily Work Report</title>
 
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 30px;
-    color: #000;
-  }
-
-  /* Logo */
-  .logo {
-    text-align: center;
-    margin-bottom: 12px;
-  }
-
-  .logo img {
-    max-width: 170px;
-  }
-
-  /* Header */
-  .header {
-    font-size: 13px;
-    margin-bottom: 8px;
-  }
-
-  /* Table */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed;
-    font-size: 13px;
-  }
-
-  /* 🔥 COLUMN CONTROL */
-  col.slno { width: 6%; }
-  col.work { width: 45%; }   /* MAX TIGHTENED */
-  col.status { width: 49%; } /* MORE SPACE */
-
-  th, td {
-    border: 1px solid #000;
-    padding: 6px 8px;
-    vertical-align: top;
-    word-wrap: break-word;
-    white-space: normal;
-  }
-
-  th {
-    text-align: center;
-    font-weight: bold;
-  }
-
-  td.slno {
-    text-align: center;
-  }
-
-  /* Footer */
-  .footer {
-    margin-top: 18px;
-    font-size: 13px;
-  }
-
-  /* Buttons (screen only) */
-  .buttons {
-    margin-top: 15px;
-  }
-
-  .buttons button {
-    padding: 6px 12px;
-    font-size: 13px;
-    margin-right: 8px;
-    cursor: pointer;
-  }
-
-  /* Hide buttons in PDF */
-  @media print {
-    .buttons {
-      display: none !important;
-    }
     body {
-      margin: 20px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        color: #000;
+        margin: 30px;
     }
-  }
-</style>
 
-<script>
-  function shareWhatsApp() {
-    const msg =
-      "Dear Kiran,%0A" +
-      "Please find my Daily Work Report for today.%0A%0A" +
-      "Regards,%0A" +
-      "Sujay B V";
-    window.open("https://wa.me/?text=" + msg, "_blank");
-  }
-</script>
+    /* LOGO */
+    .logo {
+        text-align: center;
+        margin-bottom: 15px;
+    }
+    .logo img {
+        height: 45px;
+    }
+
+    /* HEADER TEXT */
+    .header-text {
+        margin-bottom: 10px;
+    }
+
+    /* TABLE */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+        margin-top: 10px;
+    }
+
+    th, td {
+        border: 1px solid #000;
+        padding: 6px 8px;
+        vertical-align: top;
+        word-wrap: break-word;
+        white-space: normal;
+    }
+
+    th {
+        text-align: center;
+        font-weight: bold;
+    }
+
+    /* COLUMN WIDTHS — THIS IS THE MAGIC */
+    col.slno {
+        width: 6%;
+    }
+    col.work {
+        width: 34%;
+    }
+    col.status {
+        width: 60%;
+    }
+
+    /* WORK COLUMN TEXT */
+    td.work {
+        font-weight: bold;
+    }
+
+    /* FOOTER */
+    .footer {
+        margin-top: 20px;
+    }
+
+    /* BUTTONS */
+    .actions {
+        margin-top: 15px;
+    }
+
+    @media print {
+        .actions {
+            display: none !important;
+        }
+    }
+</style>
 </head>
 
 <body>
 
 <!-- LOGO -->
 <div class="logo">
-  <img src="logo.png" alt="Kidvento Logo">
+    <img src="logo.png" alt="Kidvento Logo">
 </div>
 
 <!-- HEADER -->
-<div class="header">
-  <strong>Dear Kiran,</strong><br>
-  Today’s Update – <strong>15-12-2025</strong>
+<div class="header-text">
+    <strong>Dear Kiran,</strong><br>
+    Today's Update – <span id="date"></span>
 </div>
 
 <!-- TABLE -->
 <table>
-  <colgroup>
-    <col class="slno">
-    <col class="work">
-    <col class="status">
-  </colgroup>
+    <colgroup>
+        <col class="slno">
+        <col class="work">
+        <col class="status">
+    </colgroup>
 
-  <thead>
-    <tr>
-      <th>Sl. No.</th>
-      <th>Work / Activity</th>
-      <th>Status</th>
-    </tr>
-  </thead>
+    <thead>
+        <tr>
+            <th>Sl.<br>No.</th>
+            <th>Work / Activity</th>
+            <th>Status</th>
+        </tr>
+    </thead>
 
-  <tbody>
-    <tr>
-      <td class="slno">1</td>
-      <td>Tender Master Sheet – Daily Update</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td class="slno">2</td>
-      <td>Internal Team (Logistics & Training Team)</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td class="slno">3</td>
-      <td>DDPI – Follow-ups</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td class="slno">4</td>
-      <td>Other Tasks Completed</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td class="slno">5</td>
-      <td>Pending Tasks</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td class="slno">6</td>
-      <td>Plan for Next Working Day</td>
-      <td></td>
-    </tr>
-  </tbody>
+    <tbody>
+        <tr>
+            <td style="text-align:center;">1</td>
+            <td class="work">Tender Master Sheet – Daily Update</td>
+            <td>Updated</td>
+        </tr>
+
+        <tr>
+            <td style="text-align:center;">2</td>
+            <td class="work">Internal Team (Logistics & Training Team)</td>
+            <td>
+                Charan is not picking phone to get the details of Hassan Schools installation<br><br>
+                Spoke to Gagan about short shipment, he will update in sometime
+            </td>
+        </tr>
+
+        <tr>
+            <td style="text-align:center;">3</td>
+            <td class="work">DDPI – Follow-ups</td>
+            <td>Koppal Bill follow-up</td>
+        </tr>
+
+        <tr>
+            <td style="text-align:center;">4</td>
+            <td class="work">Other Tasks Completed</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td style="text-align:center;">5</td>
+            <td class="work">Pending Tasks</td>
+            <td>
+                Will update following details by afternoon<br>
+                1. Follow up with Gadag<br>
+                2. Follow up with Sachin Chikkodi<br>
+                3. Follow up with Nanjundswamy Ramanagar<br>
+                4. Follow up with Belagavi Karan for LOI and EMD<br>
+                5. Follow up with Baby Madam Chamarajanagar<br>
+                6. Follow up with Devaraj Mandya<br>
+                7. Follow up with Nandan Madhugiri for EMD<br>
+                8. Follow up with Science Center EMD Koppal<br>
+                9. Ramanagara Tender document has to be checked today
+            </td>
+        </tr>
+
+        <tr>
+            <td style="text-align:center;">6</td>
+            <td class="work">Plan for Next Working Day</td>
+            <td></td>
+        </tr>
+    </tbody>
 </table>
 
 <!-- FOOTER -->
 <div class="footer">
-  Regards,<br><br>
-  <strong>Sujay B V</strong><br>
-  Manager – Educational Institutions & Operations<br>
-  Kidvento Education and Research Pvt. Ltd.
+    Regards,<br><br>
+    <strong>Sujay B V</strong><br>
+    Manager – Educational Institutions & Operations<br>
+    Kidvento Education and Research Pvt. Ltd.
 </div>
 
-<!-- BUTTONS (NOT IN PDF) -->
-<div class="buttons">
-  <button onclick="window.print()">Print / Save as PDF</button>
-  <button onclick="shareWhatsApp()">Share on WhatsApp</button>
+<!-- ACTION BUTTONS -->
+<div class="actions">
+    <button onclick="window.print()">Print / Save as PDF</button>
 </div>
+
+<script>
+    const d = new Date();
+    const day = String(d.getDate()).padStart(2, '0');
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const year = d.getFullYear();
+    document.getElementById("date").innerText = `${day}-${month}-${year}`;
+</script>
 
 </body>
 </html>
