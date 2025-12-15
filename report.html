@@ -1,183 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Daily Work Report</title>
+<meta charset="UTF-8">
+<title>Daily Work Report</title>
 
-  <style>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 30px;
+    color: #000;
+  }
+
+  /* Logo */
+  .logo {
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  .logo img {
+    max-width: 170px;
+  }
+
+  /* Header */
+  .header {
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+
+  /* Table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; /* 🔑 IMPORTANT */
+    font-size: 13px;
+  }
+
+  col.slno { width: 6%; }
+  col.work { width: 54%; }
+  col.status { width: 40%; }
+
+  th, td {
+    border: 1px solid #000;
+    padding: 6px 8px;
+    vertical-align: top;
+    word-wrap: break-word;
+    white-space: normal;
+  }
+
+  th {
+    text-align: center;
+    font-weight: bold;
+  }
+
+  td.slno {
+    text-align: center;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 18px;
+    font-size: 13px;
+  }
+
+  /* Buttons (screen only) */
+  .buttons {
+    margin-top: 15px;
+  }
+
+  .buttons button {
+    padding: 6px 12px;
+    font-size: 13px;
+    margin-right: 8px;
+    cursor: pointer;
+  }
+
+  /* 🔥 Hide buttons in PDF */
+  @media print {
+    .buttons {
+      display: none !important;
+    }
     body {
-      font-family: Arial, sans-serif;
-      margin: 30px;
-      color: #000;
+      margin: 20px;
     }
+  }
+</style>
 
-    /* Logo */
-    .logo {
-      text-align: center;
-      margin-bottom: 15px;
-    }
-
-    .logo img {
-      max-width: 180px;
-    }
-
-    /* Header text */
-    .header-text {
-      margin-bottom: 10px;
-      font-size: 14px;
-    }
-
-    /* Table */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 8px;
-      table-layout: fixed;
-    }
-
-    th, td {
-      border: 1px solid #000;
-      padding: 6px 8px;
-      font-size: 13px;
-      vertical-align: top;
-      word-wrap: break-word;
-    }
-
-    th {
-      text-align: center;
-      font-weight: bold;
-    }
-
-    /* Column widths */
-    th:nth-child(1),
-    td:nth-child(1) {
-      width: 8%;
-      text-align: center;
-    }
-
-    th:nth-child(2),
-    td:nth-child(2) {
-      width: 62%;
-    }
-
-    th:nth-child(3),
-    td:nth-child(3) {
-      width: 30%;
-    }
-
-    /* Footer */
-    .footer {
-      margin-top: 20px;
-      font-size: 13px;
-    }
-
-    /* Action buttons (screen only) */
-    .action-buttons {
-      margin-top: 15px;
-    }
-
-    .action-buttons button {
-      padding: 6px 12px;
-      font-size: 13px;
-      margin-right: 8px;
-      cursor: pointer;
-    }
-
-    /* 🔥 CRITICAL: Hide buttons in PRINT + PDF */
-    @media print {
-      .action-buttons {
-        display: none !important;
-        visibility: hidden !important;
-        height: 0 !important;
-      }
-
-      body {
-        margin: 20px;
-      }
-    }
-  </style>
-
-  <script>
-    function shareWhatsApp() {
-      const text =
-        "Dear Kiran,%0A" +
-        "Please find my Daily Work Report for today.%0A%0A" +
-        "Regards,%0A" +
-        "Sujay B V";
-      window.open("https://wa.me/?text=" + text, "_blank");
-    }
-  </script>
+<script>
+  function shareWhatsApp() {
+    const msg =
+      "Dear Kiran,%0A" +
+      "Please find my Daily Work Report for today.%0A%0A" +
+      "Regards,%0A" +
+      "Sujay B V";
+    window.open("https://wa.me/?text=" + msg, "_blank");
+  }
+</script>
 </head>
 
 <body>
 
-  <!-- LOGO -->
-  <div class="logo">
-    <img src="logo.png" alt="Kidvento Logo">
-  </div>
+<!-- LOGO -->
+<div class="logo">
+  <img src="logo.png" alt="Kidvento Logo">
+</div>
 
-  <!-- HEADER -->
-  <div class="header-text">
-    <strong>Dear Kiran,</strong><br>
-    Today’s Update – <strong>15-12-2025</strong>
-  </div>
+<!-- HEADER -->
+<div class="header">
+  <strong>Dear Kiran,</strong><br>
+  Today’s Update – <strong>15-12-2025</strong>
+</div>
 
-  <!-- TABLE -->
-  <table>
-    <thead>
-      <tr>
-        <th>Sl. No.</th>
-        <th>Work / Activity</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>Tender Master Sheet – Daily Update</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>Internal Team (Logistics & Training Team)</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>DDPI – Follow-ups</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td>Other Tasks Completed</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>5</td>
-        <td>Pending Tasks</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>6</td>
-        <td>Plan for Next Working Day</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
+<!-- TABLE -->
+<table>
+  <colgroup>
+    <col class="slno">
+    <col class="work">
+    <col class="status">
+  </colgroup>
 
-  <!-- FOOTER -->
-  <div class="footer">
-    Regards,<br><br>
-    <strong>Sujay B V</strong><br>
-    Manager – Educational Institutions & Operations<br>
-    Kidvento Education and Research Pvt. Ltd.
-  </div>
+  <thead>
+    <tr>
+      <th>Sl. No.</th>
+      <th>Work / Activity</th>
+      <th>Status</th>
+    </tr>
+  </thead>
 
-  <!-- BUTTONS (SCREEN ONLY) -->
-  <div class="action-buttons">
-    <button onclick="window.print()">Print / Save as PDF</button>
-    <button onclick="shareWhatsApp()">Share on WhatsApp</button>
-  </div>
+  <tbody>
+    <tr>
+      <td class="slno">1</td>
+      <td>Tender Master Sheet – Daily Update</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="slno">2</td>
+      <td>Internal Team (Logistics & Training Team)</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="slno">3</td>
+      <td>DDPI – Follow-ups</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="slno">4</td>
+      <td>Other Tasks Completed</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="slno">5</td>
+      <td>Pending Tasks</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="slno">6</td>
+      <td>Plan for Next Working Day</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- FOOTER -->
+<div class="footer">
+  Regards,<br><br>
+  <strong>Sujay B V</strong><br>
+  Manager – Educational Institutions & Operations<br>
+  Kidvento Education and Research Pvt. Ltd.
+</div>
+
+<!-- BUTTONS (NOT IN PDF) -->
+<div class="buttons">
+  <button onclick="window.print()">Print / Save as PDF</button>
+  <button onclick="shareWhatsApp()">Share on WhatsApp</button>
+</div>
 
 </body>
 </html>
