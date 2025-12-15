@@ -97,7 +97,7 @@ textarea{
   margin-top:10px;
 }
 
-input[type="date"]{
+input{
   padding:6px;
   font-size:14px;
 }
@@ -117,7 +117,7 @@ input[type="date"]{
   <div class="top-row">
     <div>
       Date:
-      <input type="date" id="datePicker">
+      <input type="text" id="datePicker" readonly>
     </div>
     <div class="toggle" onclick="toggleTheme()">🌙 Toggle Theme</div>
   </div>
@@ -169,14 +169,20 @@ function toggleTheme(){
   localStorage.setItem("theme",t);
 }
 
-/* DATE HANDLING */
+/* DATE FORMAT: DD-MM-YYYY */
+function formatDate(date){
+  const d=String(date.getDate()).padStart(2,"0");
+  const m=String(date.getMonth()+1).padStart(2,"0");
+  const y=date.getFullYear();
+  return `${d}-${m}-${y}`;
+}
+
 const picker=document.getElementById("datePicker");
-const today=new Date().toISOString().split("T")[0];
-picker.value=today;
-loadData(today);
+const todayFormatted=formatDate(new Date());
+picker.value=todayFormatted;
+loadData(todayFormatted);
 
-picker.addEventListener("change",()=>loadData(picker.value));
-
+/* LOAD DATA */
 function loadData(date){
   fields.forEach(id=>{
     document.getElementById(id).value =
