@@ -5,7 +5,11 @@
 <title>Daily Work Report</title>
 
 <style>
-body{ font-family:Arial,sans-serif; margin:30px; color:#000; }
+body{
+  font-family:Arial,sans-serif;
+  margin:30px;
+  color:#000;
+}
 .logo{text-align:center;margin-bottom:18px;}
 .logo img{max-width:150px;}
 .header-text{margin-bottom:16px;line-height:1.6;font-size:14px;}
@@ -19,17 +23,22 @@ col.status{width:62%;}
 .footer{margin-top:22px;line-height:1.4;font-size:13px;}
 .actions{margin-top:15px;}
 .actions button{padding:6px 10px;margin-right:8px;font-size:13px;cursor:pointer;}
-@media print{.actions{display:none;}}
+
+@media print{
+  .actions{display:none !important;}
+}
 </style>
 </head>
 
 <body>
 
-<div class="logo"><img src="logo.png" alt="Kidvento Logo"></div>
+<div class="logo">
+  <img src="logo.png" alt="Kidvento Logo">
+</div>
 
 <div class="header-text">
-<strong>Dear Kiran,</strong><br>
-Today's Update – <span id="reportDate"></span>
+  <strong>Dear Kiran,</strong><br>
+  Today's Update – <span id="reportDate"></span>
 </div>
 
 <table>
@@ -37,7 +46,11 @@ Today's Update – <span id="reportDate"></span>
   <col class="slno"><col class="work"><col class="status">
 </colgroup>
 <thead>
-<tr><th>Sl. No.</th><th>Work / Activity</th><th>Status</th></tr>
+<tr>
+  <th>Sl. No.</th>
+  <th>Work / Activity</th>
+  <th>Status</th>
+</tr>
 </thead>
 <tbody>
 <tr><td align="center">1</td><td class="task-title">Tender Master Sheet – Daily Update</td><td id="s1"></td></tr>
@@ -56,24 +69,59 @@ Manager – Educational Institutions & Operations<br>
 Kidvento Education and Research Pvt. Ltd.
 </div>
 
-<div class="actions">
-<button onclick="window.print()">Print / Save as PDF</button>
-<button onclick="shareWhatsApp()">Share on WhatsApp</button>
+<div class="actions" id="actionButtons">
+  <button onclick="printPDF()">Print / Save as PDF</button>
+  <button onclick="shareWhatsApp()">Share on WhatsApp</button>
 </div>
 
 <script>
-const iso=localStorage.getItem("currentReportDate")||new Date().toISOString().split("T")[0];
-const d=new Date(iso);
-document.getElementById("reportDate").innerText=
-String(d.getDate()).padStart(2,"0")+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+d.getFullYear();
+/* ===== REPORT DATE (SOURCE OF TRUTH) ===== */
+const isoDate =
+  localStorage.getItem("currentReportDate") ||
+  new Date().toISOString().split("T")[0];
 
-const data=JSON.parse(localStorage.getItem("dailyReport-"+iso))||{};
+const d = new Date(isoDate);
+const dd = String(d.getDate()).padStart(2,"0");
+const mm = String(d.getMonth()+1).padStart(2,"0");
+const yyyy = d.getFullYear();
+
+const displayDate = `${dd}-${mm}-${yyyy}`;
+document.getElementById("reportDate").innerText = displayDate;
+
+/* ===== LOAD DATA ===== */
+const data = JSON.parse(
+  localStorage.getItem("dailyReport-" + isoDate)
+) || {};
+
 for(let i=1;i<=6;i++){
-  document.getElementById("s"+i).innerText=data["task"+i]||"";
+  document.getElementById("s"+i).innerText =
+    data["task"+i] || "";
+}
+
+/* ===== PDF FILE NAME CONTROL ===== */
+const originalTitle = document.title;
+
+function printPDF(){
+  const actions = document.getElementById("actionButtons");
+  actions.style.display = "none";
+
+  // 🔥 THIS decides the PDF filename
+  document.title = `Daily_Update_${displayDate}`;
+
+  window.print();
+
+  setTimeout(()=>{
+    document.title = originalTitle;
+    actions.style.display = "block";
+  },500);
 }
 
 function shareWhatsApp(){
-  window.open("https://wa.me/?text="+encodeURIComponent(document.body.innerText),"_blank");
+  window.open(
+    "https://wa.me/?text=" +
+    encodeURIComponent(document.body.innerText),
+    "_blank"
+  );
 }
 </script>
 
