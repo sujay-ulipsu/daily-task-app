@@ -5,186 +5,76 @@
 <title>Daily Work Report</title>
 
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 30px;
-        color: #000;
-    }
-
-    .logo {
-        text-align: center;
-        margin-bottom: 18px;
-    }
-
-    .logo img {
-        max-width: 150px;
-    }
-
-    .header-text {
-        margin-bottom: 16px;
-        line-height: 1.6;
-        font-size: 14px;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        table-layout: fixed;
-        margin-top: 8px;
-    }
-
-    th, td {
-        border: 1px solid #000;
-        padding: 6px 8px;
-        vertical-align: top;
-        font-size: 13px;
-        word-wrap: break-word;
-        white-space: pre-wrap;
-    }
-
-    th {
-        text-align: center;
-        font-weight: bold;
-    }
-
-    col.slno   { width: 6%; }
-    col.work   { width: 32%; }
-    col.status { width: 62%; }
-
-    .task-title {
-        font-weight: bold;
-    }
-
-    .footer {
-        margin-top: 22px;
-        line-height: 1.4;
-        font-size: 13px;
-    }
-
-    .actions {
-        margin-top: 15px;
-    }
-
-    .actions button {
-        padding: 6px 10px;
-        margin-right: 8px;
-        font-size: 13px;
-        cursor: pointer;
-    }
-
-    /* Hide buttons in PDF */
-    @media print {
-        .actions {
-            display: none;
-        }
-    }
+body{ font-family:Arial,sans-serif; margin:30px; color:#000; }
+.logo{text-align:center;margin-bottom:18px;}
+.logo img{max-width:150px;}
+.header-text{margin-bottom:16px;line-height:1.6;font-size:14px;}
+table{width:100%;border-collapse:collapse;table-layout:fixed;margin-top:8px;}
+th,td{border:1px solid #000;padding:6px 8px;vertical-align:top;font-size:13px;white-space:pre-wrap;}
+th{text-align:center;font-weight:bold;}
+col.slno{width:6%;}
+col.work{width:32%;}
+col.status{width:62%;}
+.task-title{font-weight:bold;}
+.footer{margin-top:22px;line-height:1.4;font-size:13px;}
+.actions{margin-top:15px;}
+.actions button{padding:6px 10px;margin-right:8px;font-size:13px;cursor:pointer;}
+@media print{.actions{display:none;}}
 </style>
 </head>
 
 <body>
 
-<!-- LOGO -->
-<div class="logo">
-    <img src="logo.png" alt="Kidvento Logo">
-</div>
+<div class="logo"><img src="logo.png" alt="Kidvento Logo"></div>
 
-<!-- HEADER -->
 <div class="header-text">
-    <strong>Dear Kiran,</strong><br>
-    Today's Update – <span id="reportDate"></span>
+<strong>Dear Kiran,</strong><br>
+Today's Update – <span id="reportDate"></span>
 </div>
 
-<!-- TABLE -->
 <table>
-    <colgroup>
-        <col class="slno">
-        <col class="work">
-        <col class="status">
-    </colgroup>
-    <thead>
-        <tr>
-            <th>Sl. No.</th>
-            <th>Work / Activity</th>
-            <th>Status</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td align="center">1</td>
-            <td class="task-title">Tender Master Sheet – Daily Update</td>
-            <td id="s1"></td>
-        </tr>
-        <tr>
-            <td align="center">2</td>
-            <td class="task-title">Internal Team (Logistics & Training Team)</td>
-            <td id="s2"></td>
-        </tr>
-        <tr>
-            <td align="center">3</td>
-            <td class="task-title">DDPI – Follow-ups</td>
-            <td id="s3"></td>
-        </tr>
-        <tr>
-            <td align="center">4</td>
-            <td class="task-title">Other Tasks Completed</td>
-            <td id="s4"></td>
-        </tr>
-        <tr>
-            <td align="center">5</td>
-            <td class="task-title">Pending Tasks</td>
-            <td id="s5"></td>
-        </tr>
-        <tr>
-            <td align="center">6</td>
-            <td class="task-title">Plan for Next Working Day</td>
-            <td id="s6"></td>
-        </tr>
-    </tbody>
+<colgroup>
+  <col class="slno"><col class="work"><col class="status">
+</colgroup>
+<thead>
+<tr><th>Sl. No.</th><th>Work / Activity</th><th>Status</th></tr>
+</thead>
+<tbody>
+<tr><td align="center">1</td><td class="task-title">Tender Master Sheet – Daily Update</td><td id="s1"></td></tr>
+<tr><td align="center">2</td><td class="task-title">Internal Team (Logistics & Training Team)</td><td id="s2"></td></tr>
+<tr><td align="center">3</td><td class="task-title">DDPI – Follow-ups</td><td id="s3"></td></tr>
+<tr><td align="center">4</td><td class="task-title">Other Tasks Completed</td><td id="s4"></td></tr>
+<tr><td align="center">5</td><td class="task-title">Pending Tasks</td><td id="s5"></td></tr>
+<tr><td align="center">6</td><td class="task-title">Plan for Next Working Day</td><td id="s6"></td></tr>
+</tbody>
 </table>
 
-<!-- FOOTER -->
 <div class="footer">
-    Regards,<br><br>
-    <strong>Sujay B V</strong><br>
-    Manager – Educational Institutions & Operations<br>
-    Kidvento Education and Research Pvt. Ltd.
+Regards,<br><br>
+<strong>Sujay B V</strong><br>
+Manager – Educational Institutions & Operations<br>
+Kidvento Education and Research Pvt. Ltd.
 </div>
 
-<!-- ACTIONS -->
 <div class="actions">
-    <button onclick="window.print()">Print / Save as PDF</button>
-    <button onclick="shareWhatsApp()">Share on WhatsApp</button>
+<button onclick="window.print()">Print / Save as PDF</button>
+<button onclick="shareWhatsApp()">Share on WhatsApp</button>
 </div>
 
 <script>
-    // ---- DATE HANDLING (AUTO FIX) ----
-    let storedDate = localStorage.getItem("currentReportDate");
-    let reportDate;
+const iso=localStorage.getItem("currentReportDate")||new Date().toISOString().split("T")[0];
+const d=new Date(iso);
+document.getElementById("reportDate").innerText=
+String(d.getDate()).padStart(2,"0")+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+d.getFullYear();
 
-    if (storedDate) {
-        reportDate = new Date(storedDate);
-    } else {
-        reportDate = new Date(); // AUTO TODAY
-    }
+const data=JSON.parse(localStorage.getItem("dailyReport-"+iso))||{};
+for(let i=1;i<=6;i++){
+  document.getElementById("s"+i).innerText=data["task"+i]||"";
+}
 
-    const dd = String(reportDate.getDate()).padStart(2, '0');
-    const mm = String(reportDate.getMonth() + 1).padStart(2, '0');
-    const yyyy = reportDate.getFullYear();
-
-    document.getElementById("reportDate").innerText = `${dd}-${mm}-${yyyy}`;
-
-    // ---- LOAD DATA ----
-    const key = "dailyReport-" + `${yyyy}-${mm}-${dd}`;
-    const data = JSON.parse(localStorage.getItem(key)) || {};
-
-    for (let i = 1; i <= 6; i++) {
-        document.getElementById("s" + i).innerText = data["task" + i] || "";
-    }
-
-    function shareWhatsApp() {
-        const text = document.body.innerText;
-        window.open("https://wa.me/?text=" + encodeURIComponent(text), "_blank");
-    }
+function shareWhatsApp(){
+  window.open("https://wa.me/?text="+encodeURIComponent(document.body.innerText),"_blank");
+}
 </script>
 
 </body>
