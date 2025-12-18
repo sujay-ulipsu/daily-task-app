@@ -107,6 +107,8 @@ input{ padding:6px; font-size:14px; }
 <div class="card"><label>Plan for Next Working Day</label><textarea id="t6"></textarea></div>
 
 <button class="btn" onclick="generatePDF()">Generate PDF</button>
+<button class="btn" onclick="copyToWhatsApp()">Copy to WhatsApp</button>
+
 </div>
 
 <script>
@@ -164,6 +166,33 @@ function generatePDF(){
   localStorage.setItem("currentReportDate",datePicker.value);
   window.open("report.html","_blank");
 }
+
+function copyToWhatsApp(){
+  const dateText = dateDisplay.value;
+
+  const titles = [
+    "Tender Master Sheet - Daily Update",
+    "Internal Team (Logistics & Training Team)",
+    "DDPI - Follow-ups",
+    "Other Tasks Completed",
+    "Pending Tasks",
+    "Plan for Next Working Day"
+  ];
+
+  let message = `Dear Kiran,\n\nToday Update - ${dateText}\n\n`;
+
+  titles.forEach((title, i) => {
+    const value = document.getElementById("t"+(i+1)).value.trim() || "-";
+    message += `${i+1}. ${title}\nStatus:\n${value}\n\n`;
+  });
+
+  message += "Regards";
+
+  navigator.clipboard.writeText(message).then(()=>{
+    alert("Copied successfully. Paste directly in WhatsApp 👍");
+  });
+}
 </script>
+
 </body>
 </html>
