@@ -183,10 +183,10 @@ function copyToWhatsApp(){
 
   titles.forEach((title, i) => {
     const value = document.getElementById("t"+(i+1)).value.trim() || "-";
-    message += `${i+1}. ${title}\nStatus:\n${value}\n\n`;
+    message += `${i+1}. ${title}\n${value}\n\n`;
   });
 
-  message += "Regards";
+  message += `Regards\nSujay B V\nManager – Educational Institutions & Operations\nKidvento Education and Research Pvt. Ltd.`;
 
   navigator.clipboard.writeText(message).then(()=>{
     alert("Copied successfully. Paste directly in WhatsApp 👍");
