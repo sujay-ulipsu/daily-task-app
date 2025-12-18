@@ -180,10 +180,14 @@ function copyToWhatsApp(){
   ];
 
   let message = `Dear Kiran,\n\nToday Update - ${dateText}\n\n`;
+  let count = 1;
 
   titles.forEach((title, i) => {
-    const value = document.getElementById("t"+(i+1)).value.trim() || "-";
-    message += `${i+1}. ${title}\n${value}\n\n`;
+    const value = document.getElementById("t"+(i+1)).value.trim();
+    if(value){
+      message += `${count}. ${title}\n${value}\n\n`;
+      count++;
+    }
   });
 
   message += `Regards\nSujay B V\nManager – Educational Institutions & Operations\nKidvento Education and Research Pvt. Ltd.`;
